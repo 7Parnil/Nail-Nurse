@@ -153,17 +153,33 @@
             font-size: 1.8rem;
             color: var(--text-dark);
         }
+        
+.carousel-container {
+    overflow: hidden; /* This is important for the effect */
+}
 
-        .carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding: 20px 0;
-            gap: 20px;
-        }
+.carousel {
+    display: flex;
+    width: fit-content; /* Let the container grow to fit all images */
+    animation: scroll 45s linear infinite; /* This is the magic! */
+}
 
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* This creates the loop */
+}
+
+.carousel-item {
+    width: 300px; /* We still need to define the item size */
+    height: 300px;
+    margin: 0 10px; /* Use margin instead of gap */
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: var(--transition);
+}
+        
         .carousel::-webkit-scrollbar {
             display: none;
         }
