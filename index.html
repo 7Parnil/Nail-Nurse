@@ -259,8 +259,10 @@
 
 .carousel {
     display: flex;
-    width: fit-content;
-    animation: scroll 40s linear infinite;
+    /* The animation property is now removed */
+    position: relative;
+    left: 0;
+    transition: left 0.5s linear; /* Controls smoothness */
 }
 
 .carousel-item {
@@ -272,12 +274,7 @@
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     flex-shrink: 0;
-}
-
-@keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}     
+}   
         .carousel::-webkit-scrollbar {
             display: none;
         }
@@ -863,6 +860,33 @@
             mainNav.classList.toggle('active');
         });
     }
+</script>
+    <script>
+    document.querySelectorAll('.carousel').forEach(carousel => {
+        let isHovering = false;
+
+        carousel.addEventListener('mouseenter', () => isHovering = true);
+        carousel.addEventListener('mouseleave', () => isHovering = false);
+
+        setInterval(() => {
+            if (!isHovering) {
+                const firstItem = carousel.children[0];
+                const itemWidth = firstItem.offsetWidth + 20; // width + margin
+
+                // Smoothly slide the carousel to the left
+                carousel.style.transition = 'transform 0.5s linear';
+                carousel.style.transform = `translateX(-${itemWidth}px)`;
+
+                // After the slide animation finishes, "teleport" the first item to the end
+                setTimeout(() => {
+                    carousel.appendChild(firstItem);
+                    // Reset the transition and position for the next seamless slide
+                    carousel.style.transition = 'none';
+                    carousel.style.transform = 'translateX(0)';
+                }, 500); // This must match the transition duration
+            }
+        }, 3000); // Change 3000ms (3 seconds) to control the speed
+    });
 </script>
 </body>
 </html>
