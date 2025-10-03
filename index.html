@@ -262,7 +262,6 @@
     /* The animation property is now removed */
     position: relative;
     left: 0;
-    transition: left 0.5s linear; /* Controls smoothness */
 }
 
 .carousel-item {
@@ -862,30 +861,37 @@
     }
 </script>
     <script>
-    document.querySelectorAll('.carousel').forEach(carousel => {
-        let isHovering = false;
+    document.querySelectorAll('.carousel-container').forEach(container => {
+        const carousel = container.querySelector('.carousel');
+        const items = Array.from(carousel.children);
 
-        carousel.addEventListener('mouseenter', () => isHovering = true);
-        carousel.addEventListener('mouseleave', () => isHovering = false);
+        // This script clones the items in the background so you don't have to!
+        items.forEach(item => {
+            const clone = item.cloneNode(true);
+            carousel.appendChild(clone);
+        });
 
-        setInterval(() => {
-            if (!isHovering) {
-                const firstItem = carousel.children[0];
-                const itemWidth = firstItem.offsetWidth + 20; // width + margin
+        let speed = 0.5; // Adjust this value. Smaller = slower, Larger = faster.
+        let position = 0;
 
-                // Smoothly slide the carousel to the left
-                carousel.style.transition = 'transform 2s linear';
-                carousel.style.transform = `translateX(-${itemWidth}px)`;
-
-                // After the slide animation finishes, "teleport" the first item to the end
-                setTimeout(() => {
-                    carousel.appendChild(firstItem);
-                    // Reset the transition and position for the next seamless slide
-                    carousel.style.transition = 'none';
-                    carousel.style.transform = 'translateX(0)';
-                }, 500); // This must match the transition duration
+        function animateCarousel() {
+            position -= speed;
+            // If the carousel has scrolled past the original set of images, it seamlessly resets
+            if (Math.abs(position) >= carousel.scrollWidth / 2) {
+                position = 0;
             }
-        }, 3000); // Change 3000ms (3 seconds) to control the speed
+            carousel.style.transform = `translateX(${position}px)`;
+
+            // This creates a continuous, butter-smooth animation loop
+            requestAnimationFrame(animateCarousel);
+        }
+
+        // Start the animation
+        animateCarousel();
+
+        // Slows down on hover for a nice effect
+        container.addEventListener('mouseenter', () => speed = 0.1);
+        container.addEventListener('mouseleave', () => speed = 0.5); // Resumes to original speed
     });
 </script>
 </body>
