@@ -252,14 +252,12 @@
             font-size: 1.8rem;
             color: var(--text-dark);
         }
-        .carousel-container {
+      .carousel-container {
     overflow: hidden;
     position: relative;
 }
-
 .carousel {
     display: flex;
-    /* The animation property is now removed */
     position: relative;
     left: 0;
 }
@@ -272,8 +270,13 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    flex-shrink: 0;
-}   
+    flex-shrink: 0; /* This is important */
+    transition: transform 0.3s ease; /* For the hover effect */
+}
+
+.carousel-item:hover {
+    transform: translateY(-10px);
+}
         .carousel::-webkit-scrollbar {
             display: none;
         }
@@ -541,7 +544,7 @@
         <h2 class="section-title">Shop by Vibe</h2>
         <div class="category-grid">
             <div class="category-item">
-                <img src="images/IMG-20240608-WA0003" alt="Bridal Nails">
+                <img src="images/IMG-20240608-WA0003.jpg" alt="Bridal Nails">
                 <h4>Bridal</h4>
             </div>
             <div class="category-item">
@@ -634,7 +637,7 @@
                         <div class="carousel-caption">Metalic Foil Shine - #NN108</div>
                     </div>
                     <div class="carousel-item">
-                        <img src="imagesSnapchat-1028333329.jpg" alt="French Nails">
+                        <img src="images/Snapchat-1028333329.jpg" alt="French Nails">
                         <div class="carousel-caption">French Elegent - #NN109</div>
                     </div>
                     <div class="carousel-item">
@@ -871,7 +874,7 @@
             carousel.appendChild(clone);
         });
 
-        let speed = 0.5; // Adjust this value. Smaller = slower, Larger = faster.
+        let speed = 1.5; // Adjust this value. Smaller = slower, Larger = faster.
         let position = 0;
 
         function animateCarousel() {
