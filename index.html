@@ -231,31 +231,31 @@
         }
 
         /* Gallery Section */
-        .gallery {
-            background-color: white;
-            padding: 80px 0;
-        }
+      /* Gallery Section */
+.gallery {
+    background-color: white;
+    padding: 80px 0;
+}
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 2.5rem;
-        }
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+    font-size: 2.5rem;
+}
 
-        .carousel-container {
-            margin-bottom: 60px;
-        }
-
-        .carousel-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.8rem;
-            color: var(--text-dark);
-        }
-      .carousel-container {
+.carousel-container {
+    margin-bottom: 60px;
     overflow: hidden;
     position: relative;
 }
+
+.carousel-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
 .carousel {
     display: flex;
     position: relative;
@@ -277,42 +277,23 @@
 .carousel-item:hover {
     transform: translateY(-10px);
 }
-        .carousel::-webkit-scrollbar {
-            display: none;
-        }
 
-        .carousel-item {
-            scroll-snap-align: start;
-            flex: 0 0 auto;
-            width: 300px;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: var(--transition);
-        }
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        .carousel-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .carousel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
 .categories {
     background-color: white;
 }
@@ -874,7 +855,7 @@
             carousel.appendChild(clone);
         });
 
-        let speed = 10; // Adjust this value. Smaller = slower, Larger = faster.
+        let speed = 4.5; // Adjust this value. Smaller = slower, Larger = faster.
         let position = 0;
 
         function animateCarousel() {
