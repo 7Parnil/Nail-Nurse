@@ -847,19 +847,25 @@
     <script>
     document.querySelectorAll('.carousel-container').forEach(container => {
         const carousel = container.querySelector('.carousel');
+        if (!carousel) return; // Failsafe
+
         const items = Array.from(carousel.children);
 
-        // This script clones the items in the background so you don't have to!
+        // This script clones the items in the background so your source code stays clean
         items.forEach(item => {
             const clone = item.cloneNode(true);
             carousel.appendChild(clone);
         });
 
-        let speed = 4.5; // Adjust this value. Smaller = slower, Larger = faster.
+        let speed = 1; // You can adjust this. 1 is a good start.
         let position = 0;
+        let isHovering = false;
 
         function animateCarousel() {
-            position -= speed;
+            if (!isHovering) {
+                position -= speed;
+            }
+
             // If the carousel has scrolled past the original set of images, it seamlessly resets
             if (Math.abs(position) >= carousel.scrollWidth / 2) {
                 position = 0;
@@ -873,9 +879,9 @@
         // Start the animation
         animateCarousel();
 
-        // Slows down on hover for a nice effect
-        container.addEventListener('mouseenter', () => speed = 0.1);
-        container.addEventListener('mouseleave', () => speed = 0.5); // Resumes to original speed
+        // Pause on hover
+        container.addEventListener('mouseenter', () => isHovering = true);
+        container.addEventListener('mouseleave', () => isHovering = false);
     });
 </script>
 </body>
