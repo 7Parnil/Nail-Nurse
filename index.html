@@ -810,6 +810,7 @@
       AOS.init();
     </script>
 <script>
+    // --- Header Scroll Behavior ---
     const header = document.getElementById('main-header');
     let lastScrollY = window.scrollY;
 
@@ -830,6 +831,16 @@
             header.classList.remove('scrolled');
         }
     });
+
+    // --- Mobile Menu Toggle ---
+    const navToggle = document.getElementById('nav-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+    }
 </script>
     <script>
     document.querySelectorAll('.carousel-container').forEach(container => {
