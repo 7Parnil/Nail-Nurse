@@ -224,7 +224,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Gallery Section */
       /* Gallery Section */
 .gallery {
     background-color: white;
@@ -457,6 +456,30 @@
                 flex-direction: column;
                 align-items: center;
             }
+            /* This is the new code for the mobile dropdown */
+.main-nav-mobile {
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Positioned right below the header */
+    left: 0;
+    width: 100%;
+    background-color: var(--accent); /* Your beige background */
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.main-nav-mobile.active {
+    display: flex; /* This makes it appear when clicked */
+}
+
+.main-nav-mobile a {
+    margin: 15px 0;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 1.2em;
+}
         }
 
         /* Animations */
@@ -834,11 +857,22 @@
 
     // --- Mobile Menu Toggle ---
     const navToggle = document.getElementById('nav-toggle');
-    const mainNav = document.getElementById('main-nav');
+
+    // This part is NEW: It creates the mobile menu in the background
+    const mobileNav = document.createElement('nav');
+    mobileNav.className = 'main-nav-mobile';
+    mobileNav.innerHTML = `
+        <a href="#gallery">Press-Ons</a>
+        <a href="#services">Atelier</a>
+        <a href="#socials">Connect</a>
+    `;
+    // It adds the new menu to the page
+    document.body.appendChild(mobileNav);
 
     if (navToggle) {
         navToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
+            // Now, it toggles the 'active' class on our new mobile menu
+            mobileNav.classList.toggle('active');
         });
     }
 </script>
