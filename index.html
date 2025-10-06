@@ -9,27 +9,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .main-header {
+   /* Header Styles */
+.main-header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: transparent; /* Initially transparent */
-    padding: 15px 20px;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background-color: transparent; /* Starts transparent */
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    transform: translateY(0); /* Starts visible */
 }
 
 .main-header.scrolled {
-    background-color: #E3D5D1; /* Your muted blush/nude color */
-    transform: translateY(0); /* Visible when scrolled */
+    background-color: var(--accent); /* Your beige background */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -40,36 +41,29 @@
     color: var(--text-dark);
     text-decoration: none;
     font-weight: bold;
-    /* This is the trick for centering */
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 0 20px; /* Adds space around the logo */
 }
 
 .main-nav {
-    /* This pushes the nav to the right */
-    margin-left: auto;
+    display: flex;
 }
 .main-nav a {
-    /* ... keep your existing .main-nav a styles ... */
-    position: relative; /* This is needed for the underline effect */
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 8px 20px; /* This creates the space inside the box */
+    border: 2px solid var(--text-dark); /* This creates the border */
+    border-radius: 30px; /* This rounds the corners */
+    transition: all 0.3s ease; /* For a smooth hover effect */
 }
 
-.main-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--text-dark);
-    transition: width 0.3s ease;
+.main-nav a:hover {
+    background-color: var(--text-dark); /* The box fills with color on hover */
+    color: var(--text-light); /* The text turns light on hover */
 }
-
-.main-nav a:hover::after {
-    width: 100%;
-}
-
 .nav-toggle { /* For mobile menu (optional, but good practice) */
     display: none;
     cursor: pointer;
@@ -494,19 +488,21 @@
     </style>
 </head>
 <body>
-    <header id="main-header" class="main-header">
+   <header id="main-header" class="main-header">
     <div class="header-content">
+        <nav class="main-nav nav-left">
+            <a href="#gallery">Press-Ons</a>
+        </nav>
         <a href="#" class="header-logo">NAIL NURSE</a>
+        <nav class="main-nav nav-right">
+            <a href="#services">Atelier</a>
+            <a href="#socials">Connect</a>
+        </nav>
         <div class="nav-toggle" id="nav-toggle">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <nav class="main-nav" id="main-nav">
-            <a href="#gallery">Press-Ons</a>
-            <a href="#services">Atelier</a>
-            <a href="#socials">Connect</a>
-        </nav>
     </div>
 </header>
     <!-- Hero Section -->
@@ -677,7 +673,7 @@
     </section>
 
     <!-- Services Section -->
-    <section class="services" data-aos="fade-up">
+    <section id="services" class="services" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Bespoke Nail Creations & Pricing</h2>
             
@@ -784,7 +780,7 @@
     </section>
 
     <!-- Socials Section -->
-    <section class="socials" data-aos="fade-up">
+    <section id="socials" class="socials" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">See More of My Work</h2>
             <div class="social-icons">
@@ -818,31 +814,22 @@
     let lastScrollY = window.scrollY;
 
     window.addEventListener('scroll', () => {
-        if (lastScrollY < window.scrollY && window.scrollY > 100) {
-            // User is scrolling DOWN
+        if (lastScrollY < window.scrollY && window.scrollY > 150) {
+            // User is scrolling DOWN, hide header
             header.style.transform = 'translateY(-100%)';
         } else {
-            // User is scrolling UP or at the top
+            // User is scrolling UP or near the top, show header
             header.style.transform = 'translateY(0)';
         }
         lastScrollY = window.scrollY;
 
-        // Add background color when not at the top
+        // Add background color when not at the very top
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
     });
-
-    // Your mobile menu toggle script can stay here
-    const navToggle = document.getElementById('nav-toggle');
-    const mainNav = document.getElementById('main-nav');
-    if (navToggle) {
-        navToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-        });
-    }
 </script>
     <script>
     document.querySelectorAll('.carousel-container').forEach(container => {
