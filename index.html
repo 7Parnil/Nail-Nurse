@@ -456,35 +456,35 @@
                 flex-direction: column;
                 align-items: center;
             }
-/* This is the new code for the mobile OVERLAY menu */
+/* This is the new code for the mobile dropdown */
 .main-nav-mobile {
-    position: fixed; /* Fixed so it covers the whole screen */
-    top: 0;
+    position: fixed; /* This is key for positioning */
+    top: 70px; /* Adjust this value to be the height of your header */
     left: 0;
     width: 100%;
-    height: 100vh; /* Full viewport height */
     background-color: var(--accent); /* Your beige background */
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 999; /* Make sure it's above other content */
+
+    /* Animation setup */
+    transform: translateY(-150%); /* Start hidden above the viewport */
+    transition: transform 0.4s ease-in-out;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.4s ease-in-out;
-    transform: translateX(-100%); /* Start hidden off-screen to the left */
-    z-index: 1001; /* Above the header */
 }
 
 .main-nav-mobile.active {
-    transform: translateX(0); /* This makes it slide in */
+    transform: translateY(0); /* This makes it slide down into view */
 }
 
 .main-nav-mobile a {
-    margin: 20px 0;
+    margin: 15px 0;
     color: var(--text-dark);
     text-decoration: none;
-    font-size: 2em; /* Larger, more impactful font */
-    font-family: 'Playfair Display', serif; /* Using your elegant heading font */
+    font-size: 1.2em;
 }
-
 /* Style for the close button */
 .close-btn {
     position: absolute;
@@ -869,35 +869,34 @@
         }
     });
 
-    // --- Mobile Menu Toggle (Overlay Version) ---
+    // --- Mobile Menu Toggle (with Auto-Close) ---
     const navToggle = document.getElementById('nav-toggle');
 
     // This creates the mobile menu element
     const mobileNav = document.createElement('nav');
     mobileNav.className = 'main-nav-mobile';
     mobileNav.innerHTML = `
-        <div class="close-btn">&times;</div>
         <a href="#gallery">Press-Ons</a>
         <a href="#services">Atelier</a>
         <a href="#socials">Connect</a>
     `;
     document.body.appendChild(mobileNav);
 
-    const closeBtn = mobileNav.querySelector('.close-btn');
+    const mobileNavLinks = mobileNav.querySelectorAll('a');
 
-    // Show the menu
+    // Show/hide the menu when the toggle is clicked
     if (navToggle) {
         navToggle.addEventListener('click', () => {
-            mobileNav.classList.add('active');
+            mobileNav.classList.toggle('active');
         });
     }
 
-    // Hide the menu
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
+    // THIS IS THE NEW PART: Hide the menu when any link inside it is clicked
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
             mobileNav.classList.remove('active');
         });
-    }
+    });
 </script>
     <script>
     document.querySelectorAll('.carousel-container').forEach(container => {
