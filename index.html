@@ -456,29 +456,43 @@
                 flex-direction: column;
                 align-items: center;
             }
-            /* This is the new code for the mobile dropdown */
+/* This is the new code for the mobile OVERLAY menu */
 .main-nav-mobile {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    position: absolute;
-    top: 100%; /* Positioned right below the header */
+    position: fixed; /* Fixed so it covers the whole screen */
+    top: 0;
     left: 0;
     width: 100%;
+    height: 100vh; /* Full viewport height */
     background-color: var(--accent); /* Your beige background */
-    padding: 10px 0;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s ease-in-out;
+    transform: translateX(-100%); /* Start hidden off-screen to the left */
+    z-index: 1001; /* Above the header */
 }
 
 .main-nav-mobile.active {
-    display: flex; /* This makes it appear when clicked */
+    transform: translateX(0); /* This makes it slide in */
 }
 
 .main-nav-mobile a {
-    margin: 15px 0;
+    margin: 20px 0;
     color: var(--text-dark);
     text-decoration: none;
-    font-size: 1.2em;
+    font-size: 2em; /* Larger, more impactful font */
+    font-family: 'Playfair Display', serif; /* Using your elegant heading font */
+}
+
+/* Style for the close button */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2.5em;
+    color: var(--text-dark);
+    cursor: pointer;
 }
         }
 
@@ -855,24 +869,33 @@
         }
     });
 
-    // --- Mobile Menu Toggle ---
+    // --- Mobile Menu Toggle (Overlay Version) ---
     const navToggle = document.getElementById('nav-toggle');
 
-    // This part is NEW: It creates the mobile menu in the background
+    // This creates the mobile menu element
     const mobileNav = document.createElement('nav');
     mobileNav.className = 'main-nav-mobile';
     mobileNav.innerHTML = `
+        <div class="close-btn">&times;</div>
         <a href="#gallery">Press-Ons</a>
         <a href="#services">Atelier</a>
         <a href="#socials">Connect</a>
     `;
-    // It adds the new menu to the page
     document.body.appendChild(mobileNav);
 
+    const closeBtn = mobileNav.querySelector('.close-btn');
+
+    // Show the menu
     if (navToggle) {
         navToggle.addEventListener('click', () => {
-            // Now, it toggles the 'active' class on our new mobile menu
-            mobileNav.classList.toggle('active');
+            mobileNav.classList.add('active');
+        });
+    }
+
+    // Hide the menu
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
         });
     }
 </script>
