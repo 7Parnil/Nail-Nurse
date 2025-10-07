@@ -64,19 +64,34 @@
     background-color: var(--text-dark); /* The box fills with color on hover */
     color: var(--text-light); /* The text turns light on hover */
 }
-.nav-toggle { /* For mobile menu (optional, but good practice) */
-    display: none;
+.nav-toggle {
+    display: none; /* Stays hidden on desktop */
     cursor: pointer;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around; /* Use space-around for better spacing */
     width: 30px;
-    height: 20px;
+    height: 25px; /* A bit more height */
+    position: relative; /* Needed for positioning */
+    z-index: 1002; /* Make sure it's above the menu */
 }
+
 .nav-toggle span {
     height: 3px;
-    background-color: #2B2B2B;
+    background-color: var(--text-dark);
     width: 100%;
     border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* This is the animation part */
+.nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
 }
 
 /* Basic Responsive adjustments for header (optional) */
@@ -869,10 +884,9 @@
         }
     });
 
-    // --- Mobile Menu Toggle (with Auto-Close) ---
+    // --- Mobile Menu Toggle (with Auto-Close and Icon Animation) ---
     const navToggle = document.getElementById('nav-toggle');
 
-    // This creates the mobile menu element
     const mobileNav = document.createElement('nav');
     mobileNav.className = 'main-nav-mobile';
     mobileNav.innerHTML = `
@@ -887,13 +901,15 @@
     // Show/hide the menu when the toggle is clicked
     if (navToggle) {
         navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active'); // This triggers the 'X' animation
             mobileNav.classList.toggle('active');
         });
     }
 
-    // THIS IS THE NEW PART: Hide the menu when any link inside it is clicked
+    // Hide the menu when any link inside it is clicked
     mobileNavLinks.forEach(link => {
         link.addEventListener('click', () => {
+            navToggle.classList.remove('active'); // This reverts the 'X' back to lines
             mobileNav.classList.remove('active');
         });
     });
