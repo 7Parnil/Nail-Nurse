@@ -255,6 +255,7 @@
     margin-bottom: 60px;
     overflow: hidden;
     position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .carousel-title {
@@ -275,7 +276,7 @@
     height: 300px;
     margin: 0 10px;
     position: relative;
-    border-radius: 10px;
+    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     flex-shrink: 0; /* This is important */
@@ -301,6 +302,41 @@
     color: white;
     padding: 15px;
     text-align: center;
+}
+        .carousel-nav {
+    display: none; /* Hidden on mobile by default */
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Allows clicks to go through */
+}
+
+.nav-arrow {
+    pointer-events: all; /* Makes only the arrows clickable */
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-arrow:hover {
+    background-color: white;
+    transform: scale(1.1);
+}
+
+/* Show arrows only on larger screens (desktop) */
+@media (min-width: 769px) {
+    .carousel-container:hover .carousel-nav {
+        display: flex;
+    }
 }
 .categories {
     background-color: white;
@@ -594,6 +630,10 @@
             
             <div class="carousel-container">
                 <h3 class="carousel-title">For Every Celebration</h3>
+                <div class="carousel-nav">
+    <button class="nav-arrow prev-arrow">&lt;</button>
+    <button class="nav-arrow next-arrow">&gt;</button>
+</div>
                 <div class="carousel">
                     <div class="carousel-item">
                         <img src="images/20241211_170843.jpg" alt="Bridal Nails">
@@ -632,6 +672,10 @@
             
             <div class="carousel-container">
                 <h3 class="carousel-title">Signature Artistry</h3>
+                <div class="carousel-nav">
+    <button class="nav-arrow prev-arrow">&lt;</button>
+    <button class="nav-arrow next-arrow">&gt;</button>
+</div>
                 <div class="carousel">
                     <div class="carousel-item">
                         <img src="images/20250319_224348.jpg" alt="Chrome Nails">
@@ -678,6 +722,10 @@
             
             <div class="carousel-container">
                 <h3 class="carousel-title">Seasonal & Trendy</h3>
+                <div class="carousel-nav">
+    <button class="nav-arrow prev-arrow">&lt;</button>
+    <button class="nav-arrow next-arrow">&gt;</button>
+</div>
                 <div class="carousel">
                     <div class="carousel-item">
                         <img src="images/20250621_201543.jpg" alt="Summer Nails">
@@ -914,45 +962,79 @@
         });
     });
 </script>
-    <script>
-    document.querySelectorAll('.carousel-container').forEach(container => {
-        const carousel = container.querySelector('.carousel');
-        if (!carousel) return; // Failsafe
+  <script>
+document.querySelectorAll('.carousel-container').forEach(container => {
+    const carousel = container.querySelector('.carousel');
+    if (!carousel) return;
 
-        const items = Array.from(carousel.children);
+    // --- SETUP ---
+    const items = Array.from(carousel.children);
+    items.forEach(item => carousel.appendChild(item.cloneNode(true)));
 
-        // This script clones the items in the background so your source code stays clean
-        items.forEach(item => {
-            const clone = item.cloneNode(true);
-            carousel.appendChild(clone);
-        });
+    const prevArrow = container.querySelector('.prev-arrow');
+    const nextArrow = container.querySelector('.next-arrow');
 
-        let speed = 1; // You can adjust this. 1 is a good start.
-        let position = 0;
-        let isHovering = false;
+    let speed = 1;
+    let position = 0;
+    let isPaused = false; // For mobile click-to-pause
+    let isHovering = false; // For desktop hover-to-pause
+    let isDragging = false;
+    let startX, scrollLeft;
 
-        function animateCarousel() {
-            if (!isHovering) {
-                position -= speed;
-            }
-
-            // If the carousel has scrolled past the original set of images, it seamlessly resets
+    // --- ANIMATION ENGINE ---
+    function animateCarousel() {
+        if (!isPaused && !isHovering && !isDragging) {
+            position -= speed;
             if (Math.abs(position) >= carousel.scrollWidth / 2) {
                 position = 0;
             }
             carousel.style.transform = `translateX(${position}px)`;
-
-            // This creates a continuous, butter-smooth animation loop
-            requestAnimationFrame(animateCarousel);
         }
+        requestAnimationFrame(animateCarousel);
+    }
+    animateCarousel();
 
-        // Start the animation
-        animateCarousel();
-
-        // Pause on hover
+    // --- DESKTOP CONTROLS ---
+    if (prevArrow && nextArrow) {
+        prevArrow.addEventListener('click', () => {
+            position += 320; // item width + margin
+            if (position > 0) position = -(carousel.scrollWidth / 2);
+        });
+        nextArrow.addEventListener('click', () => {
+            position -= 320; // item width + margin
+            if (Math.abs(position) >= carousel.scrollWidth / 2) position = 0;
+        });
         container.addEventListener('mouseenter', () => isHovering = true);
         container.addEventListener('mouseleave', () => isHovering = false);
+    }
+
+    // --- MOBILE/TABLET CONTROLS ---
+    carousel.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        startX = e.touches[0].pageX - carousel.offsetLeft;
+        scrollLeft = position;
+        carousel.style.transition = 'none'; // Turn off transitions for instant drag
     });
+
+    carousel.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.touches[0].pageX - carousel.offsetLeft;
+        const walk = (x - startX) * 2; // The multiplier makes it feel more responsive
+        position = scrollLeft + walk;
+        carousel.style.transform = `translateX(${position}px)`;
+    });
+
+    carousel.addEventListener('touchend', () => {
+        isDragging = false;
+        // Add a click listener to each item for the pause/play functionality
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                isPaused = !isPaused; // Toggle the pause state
+            });
+        });
+    });
+});
 </script>
 </body>
 </html>
