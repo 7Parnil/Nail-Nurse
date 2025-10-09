@@ -239,23 +239,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-      /* Gallery Section */
+   /* --- NEW CAROUSEL STYLES --- */
 .gallery {
-    background-color: white;
+    /* This makes the section full-width */
     padding: 80px 0;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 60px;
-    font-size: 2.5rem;
 }
 
 .carousel-container {
     margin-bottom: 60px;
     overflow: hidden;
     position: relative;
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .carousel-title {
@@ -272,15 +265,15 @@
 }
 
 .carousel-item {
-    width: 300px;
-    height: 300px;
+    width: 250px; /* Vertical rectangle width */
+    height: 350px; /* Vertical rectangle height */
     margin: 0 10px;
     position: relative;
-    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+    border-radius: 15px; /* Softer rounded corners */
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    flex-shrink: 0; /* This is important */
-    transition: transform 0.3s ease; /* For the hover effect */
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
 }
 
 .carousel-item:hover {
@@ -303,36 +296,40 @@
     padding: 15px;
     text-align: center;
 }
-        .carousel-nav {
+
+/* New Arrow Styles */
+.carousel-nav {
     display: none; /* Hidden on mobile by default */
     position: absolute;
     top: 50%;
     width: 100%;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 30px; /* More space from the edges */
     transform: translateY(-50%);
-    pointer-events: none; /* Allows clicks to go through */
+    pointer-events: none;
 }
 
 .nav-arrow {
-    pointer-events: all; /* Makes only the arrows clickable */
-    background-color: rgba(255, 255, 255, 0.7);
+    pointer-events: all;
+    background-color: rgba(43, 43, 43, 0.5); /* Translucent background */
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 24px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-arrow:hover {
-    background-color: white;
+    background-color: rgba(43, 43, 43, 0.8);
     transform: scale(1.1);
 }
 
-/* Show arrows only on larger screens (desktop) */
 @media (min-width: 769px) {
     .carousel-container:hover .carousel-nav {
         display: flex;
@@ -976,14 +973,15 @@ document.querySelectorAll('.carousel-container').forEach(container => {
 
     let speed = 1;
     let position = 0;
-    let isPaused = false; // For mobile click-to-pause
-    let isHovering = false; // For desktop hover-to-pause
+    let isPausedByClick = false; // For mobile click-to-pause
+    let isHovering = false;     // For desktop hover-to-pause
     let isDragging = false;
     let startX, scrollLeft;
+    let dragThreshold = 50; // Pixels to move before it's a confirmed swipe
 
     // --- ANIMATION ENGINE ---
     function animateCarousel() {
-        if (!isPaused && !isHovering && !isDragging) {
+        if (!isPausedByClick && !isHovering && !isDragging) {
             position -= speed;
             if (Math.abs(position) >= carousel.scrollWidth / 2) {
                 position = 0;
@@ -998,40 +996,53 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     if (prevArrow && nextArrow) {
         prevArrow.addEventListener('click', () => {
             position += 320; // item width + margin
-            if (position > 0) position = -(carousel.scrollWidth / 2);
+            if (position > 0) position = -(carousel.scrollWidth / 2) + position;
         });
         nextArrow.addEventListener('click', () => {
             position -= 320; // item width + margin
-            if (Math.abs(position) >= carousel.scrollWidth / 2) position = 0;
         });
         container.addEventListener('mouseenter', () => isHovering = true);
         container.addEventListener('mouseleave', () => isHovering = false);
     }
 
-    // --- MOBILE/TABLET CONTROLS ---
+    // --- MOBILE/TABLET CONTROLS (THE SMART VERSION) ---
+    let touchStartX, touchStartY;
     carousel.addEventListener('touchstart', (e) => {
         isDragging = true;
-        startX = e.touches[0].pageX - carousel.offsetLeft;
+        touchStartX = e.touches[0].pageX;
+        touchStartY = e.touches[0].pageY;
+        startX = touchStartX - carousel.getBoundingClientRect().left;
         scrollLeft = position;
-        carousel.style.transition = 'none'; // Turn off transitions for instant drag
-    });
+    }, { passive: true });
 
     carousel.addEventListener('touchmove', (e) => {
         if (!isDragging) return;
-        e.preventDefault();
-        const x = e.touches[0].pageX - carousel.offsetLeft;
-        const walk = (x - startX) * 2; // The multiplier makes it feel more responsive
-        position = scrollLeft + walk;
-        carousel.style.transform = `translateX(${position}px)`;
+        const touchCurrentX = e.touches[0].pageX;
+        const touchCurrentY = e.touches[0].pageY;
+        const deltaX = Math.abs(touchCurrentX - touchStartX);
+        const deltaY = Math.abs(touchCurrentY - touchStartY);
+
+        // Only prevent vertical scroll if the swipe is mostly horizontal
+        if (deltaX > deltaY && deltaX > 10) {
+            e.preventDefault();
+            const x = touchCurrentX - carousel.getBoundingClientRect().left;
+            const walk = (x - startX) * 2;
+            position = scrollLeft + walk;
+            carousel.style.transform = `translateX(${position}px)`;
+        }
     });
 
-    carousel.addEventListener('touchend', () => {
+    window.addEventListener('touchend', () => {
         isDragging = false;
-        // Add a click listener to each item for the pause/play functionality
-        items.forEach(item => {
-            item.addEventListener('click', () => {
-                isPaused = !isPaused; // Toggle the pause state
-            });
+    });
+
+    // Add click-to-toggle pause for each item
+    carousel.querySelectorAll('.carousel-item').forEach(item => {
+        item.addEventListener('click', () => {
+            // This checks if the device is likely a touch device
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                isPausedByClick = !isPausedByClick; // Toggle the pause state
+            }
         });
     });
 });
