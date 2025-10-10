@@ -243,8 +243,12 @@
 /* --- NEW CAROUSEL STYLES --- */
 .gallery {
     padding: 80px 0; /* Vertical padding only */
+    /* These next lines make the section full-width */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
 .section-title {
     text-align: center;
     margin-bottom: 60px;
@@ -983,10 +987,12 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     let speed = 1;
     let position = 0;
     let isPausedByClick = false;
-    let isHoveringItem = false; // For item-specific hover
+    let isHovering = false;
+    let isDragging = false; // For desktop drag (optional)
 
+    // --- Animation Engine ---
     function animateCarousel() {
-        if (!isPausedByClick && !isHoveringItem) {
+        if (!isPausedByClick && !isHovering && !isDragging) {
             position -= speed;
             if (Math.abs(position) >= carousel.scrollWidth / 2) {
                 position = 0;
@@ -997,51 +1003,55 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     }
     animateCarousel();
 
+    // --- Desktop Controls ---
     if (prevArrow && nextArrow) {
         prevArrow.addEventListener('click', () => {
-            isHoveringItem = true; // Pause animation while moving
+            isHovering = true;
             position += 320;
             if (position > 0) position = -(carousel.scrollWidth / 2) + 320;
             carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => isHoveringItem = false, 500); // Resume after a moment
+            setTimeout(() => { isHovering = false; }, 500);
         });
         nextArrow.addEventListener('click', () => {
-            isHoveringItem = true; // Pause animation while moving
+            isHovering = true;
             position -= 320;
             carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => isHoveringItem = false, 500); // Resume after a moment
+            setTimeout(() => { isHovering = false; }, 500);
+        });
+        carousel.querySelectorAll('.carousel-item').forEach(item => {
+            item.addEventListener('mouseenter', () => isHovering = true);
+            item.addEventListener('mouseleave', () => isHovering = false);
         });
     }
 
-    carousel.querySelectorAll('.carousel-item').forEach(item => {
-        item.addEventListener('mouseenter', () => isHoveringItem = true);
-        item.addEventListener('mouseleave', () => isHoveringItem = false);
-    });
-
-    let touchStartX, touchStartY, isSwiping;
+    // --- Mobile/Tablet Smart Swipe Controls ---
+    let touchStartX, touchStartY, isSwiping, initialPosition;
     carousel.addEventListener('touchstart', (e) => {
-        isHoveringItem = true;
+        isHovering = true; // Pause animation during touch
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isSwiping = false;
+        initialPosition = position;
     }, { passive: true });
 
     carousel.addEventListener('touchmove', (e) => {
-        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
-        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
-        if (deltaX > deltaY + 10) { // Prioritize horizontal swipe
-            isSwiping = true;
-        }
-    }, { passive: true });
+        const deltaX = e.touches[0].clientX - touchStartX;
+        const deltaY = e.touches[0].clientY - touchStartY;
 
-    carousel.addEventListener('touchend', (e) => {
-        if (!isSwiping) {
-            if ('ontouchstart' in window) {
-                isPausedByClick = !isPausedByClick;
-            }
+        if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { // Prioritize horizontal swipe
+            e.preventDefault();
+            isSwiping = true;
+            position = initialPosition + deltaX;
+            carousel.style.transform = `translateX(${position}px)`;
         }
-        isHoveringItem = false;
-        setTimeout(() => { isSwiping = false; }, 100);
+    }, { passive: false });
+
+    carousel.addEventListener('touchend', () => {
+        if (!isSwiping) { // If it was a tap, not a swipe
+            isPausedByClick = !isPausedByClick;
+        }
+        isHovering = false; // Always resume animation after touch
+        setTimeout(() => { isSwiping = false; }, 50);
     });
 });
 </script>
