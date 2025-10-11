@@ -241,36 +241,40 @@
         }
 
 /* --- NEW CAROUSEL STYLES --- */
+/* --- NEW CAROUSEL STYLES --- */
 .gallery {
-    padding: 80px 0; /* no Vertical padding */
+    padding: 80px 0;
 }
 .section-title {
     text-align: center;
     margin-bottom: 60px;
-    font-size: 3rem; /* Restoring the larger title size */
+    font-size: 3rem; /* Restored large title size */
 }
-
 .carousel-container {
     margin-bottom: 60px;
     overflow: hidden;
     position: relative;
 }
-
 .carousel-title {
     text-align: center;
     margin-bottom: 40px;
     font-size: 2.2rem;
     color: var(--text-dark);
 }
-
 .carousel {
     display: flex;
-    position: relative;
-    left: 0;
+    width: fit-content;
+    animation: scroll 45s linear infinite;
 }
-
+.carousel:hover {
+    animation-play-state: paused;
+}
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
 .carousel-item {
-    width: 300px; /* Original 600x600 feel */
+    width: 300px; /* Original square size */
     height: 300px;
     margin: 0 10px;
     position: relative;
@@ -278,15 +282,16 @@
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     flex-shrink: 0;
-    transition: transform 0.3s ease;
 }
-
 .carousel-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
-
+.carousel-item:hover img {
+    transform: scale(1.05);
+}
 .carousel-caption {
     position: absolute;
     bottom: 0;
@@ -297,22 +302,21 @@
     padding: 15px;
     text-align: center;
     font-weight: 500;
+    transition: opacity 0.3s ease;
 }
-
 /* New Arrow Styles */
 .carousel-nav {
-    display: none; /* Hidden by default on mobile */
+    display: none;
     position: absolute;
-    top: 50%; /* Perfect vertical center */
+    top: 50%;
     left: 0;
     width: 100%;
     justify-content: space-between;
-    padding: 0 25px; /* More space from the edges */
+    padding: 0 25px;
     transform: translateY(-50%);
     pointer-events: none;
     z-index: 10;
 }
-
 .nav-arrow {
     pointer-events: all;
     background-color: rgba(255, 255, 255, 0.7);
@@ -329,13 +333,9 @@
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-
 .nav-arrow:hover {
     background-color: white;
-    transform: scale(1.1);
 }
-
-/* Show arrows permanently on desktop */
 @media (min-width: 1024px) {
     .carousel-nav {
         display: flex;
@@ -973,79 +973,50 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     const carousel = container.querySelector('.carousel');
     if (!carousel) return;
 
-    const items = Array.from(carousel.children);
-    items.forEach(item => carousel.appendChild(item.cloneNode(true)));
-
     const prevArrow = container.querySelector('.prev-arrow');
     const nextArrow = container.querySelector('.next-arrow');
 
-    let speed = 1;
-    let position = 0;
     let isPausedByClick = false;
-    let isHovering = false;
-    let isDragging = false; // For desktop drag (optional)
+    let isHoveringItem = false; 
 
-    // --- Animation Engine ---
-    function animateCarousel() {
-        if (!isPausedByClick && !isHovering && !isDragging) {
-            position -= speed;
-            if (Math.abs(position) >= carousel.scrollWidth / 2) {
-                position = 0;
-            }
-            carousel.style.transform = `translateX(${position}px)`;
-        }
-        requestAnimationFrame(animateCarousel);
-    }
-    animateCarousel();
-
-    // --- Desktop Controls ---
     if (prevArrow && nextArrow) {
         prevArrow.addEventListener('click', () => {
-            isHovering = true;
-            position += 320;
-            if (position > 0) position = -(carousel.scrollWidth / 2) + 320;
-            carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => { isHovering = false; }, 500);
+            const itemWidth = 320; // item width + margin
+            carousel.scrollBy({ left: -itemWidth, behavior: 'smooth' });
         });
         nextArrow.addEventListener('click', () => {
-            isHovering = true;
-            position -= 320;
-            carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => { isHovering = false; }, 500);
-        });
-        carousel.querySelectorAll('.carousel-item').forEach(item => {
-            item.addEventListener('mouseenter', () => isHovering = true);
-            item.addEventListener('mouseleave', () => isHovering = false);
+            const itemWidth = 320; // item width + margin
+            carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
         });
     }
 
-    // --- Mobile/Tablet Smart Swipe Controls ---
-    let touchStartX, touchStartY, isSwiping, initialPosition;
+    carousel.addEventListener('mouseenter', () => isHoveringItem = true);
+    carousel.addEventListener('mouseleave', () => isHoveringItem = false);
+
+    let touchStartX, touchStartY, isSwiping;
     carousel.addEventListener('touchstart', (e) => {
-        isHovering = true; // Pause animation during touch
+        isHoveringItem = true;
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isSwiping = false;
-        initialPosition = position;
     }, { passive: true });
 
     carousel.addEventListener('touchmove', (e) => {
-        const deltaX = e.touches[0].clientX - touchStartX;
-        const deltaY = e.touches[0].clientY - touchStartY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { // Prioritize horizontal swipe
-            e.preventDefault();
+        if (!isHoveringItem) return;
+        const deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+        const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+        if (deltaX > deltaY + 10) { 
             isSwiping = true;
-            position = initialPosition + deltaX;
-            carousel.style.transform = `translateX(${position}px)`;
         }
-    }, { passive: false });
+    }, { passive: true });
 
     carousel.addEventListener('touchend', () => {
-        if (!isSwiping) { // If it was a tap, not a swipe
-            isPausedByClick = !isPausedByClick;
+        if (!isSwiping) {
+            if ('ontouchstart' in window) {
+                isPausedByClick = !isPausedByClick;
+            }
         }
-        isHovering = false; // Always resume animation after touch
+        isHoveringItem = false;
         setTimeout(() => { isSwiping = false; }, 50);
     });
 });
