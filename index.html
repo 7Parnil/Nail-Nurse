@@ -304,11 +304,15 @@
     display: none; /* Hidden by default on mobile */
     position: absolute;
     top: 50%; /* Perfect vertical center */
-    left: 0;
+    
+    /* These 3 lines are the change */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering trick */
+    max-width: 1250px; /* 1200px content + 25px padding each side */
+
     width: 100%;
     justify-content: space-between;
-    padding: 0 25px; /* More space from the edges */
-    transform: translateY(-50%);
+    padding: 0 25px;
     pointer-events: none;
     z-index: 10;
 }
@@ -628,156 +632,153 @@
 </section>
    <!-- Gallery Section -->
     <section id="gallery" class="gallery" data-aos="fade-up" data-aos-duration="1000">
-        <div class="container">
-            <h2 class="section-title">The Press-On Collection</h2>
+    
+    <div class="container">
+        <h2 class="section-title">The Press-On Collection</h2>
+    </div>
 
-  <div class="carousel-container">
-  <h3 class="carousel-title">For Every Celebration</h3>
-
- <div class="carousel-nav">
+    <div class="carousel-container">
+        <h3 class="carousel-title">For Every Celebration</h3>
+        <div class="carousel-nav">
             <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
             <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
         </div>
-
         <div class="carousel">
-        <div class="carousel-item">
- <img src="images/20241211_170843.jpg" alt="Bridal Nails">
-<div class="carousel-caption">Bridal Elegance - #NN001</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20240718_104057.jpg" alt="Party Nails">
-                        <div class="carousel-caption">Party Glam - #NN002</div>
-                    </div> 
-                    <div class="carousel-item">
-                        <img src="images/20231013_191445.jpg" alt="Indian Occassion">
-                        <div class="carousel-caption">Indian Occassions - #NN003</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/20240524_195724.jpg" alt="Wishes moment">
-                        <div class="carousel-caption">Wishes Moment - #NN004</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/IMG-20240528-WA0003.jpg" alt="Festive Shine">
-                        <div class="carousel-caption">Festive shine - #NN005</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20250731_220144.jpg" alt="Graduation Nails">
-                        <div class="carousel-caption">Graduation Shine - #NN006</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20240901_190359.jpg" alt="Anniversary Nails">
-                        <div class="carousel-caption">Anniversary Love - #NN007</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/IMG_20241028_212405_739.jpg" alt="Birthday Nails">
-                        <div class="carousel-caption">Birthday Sparkle - #NN008</div>
-                    </div>
-                </div>
+            <div class="carousel-item">
+                <img src="images/20241211_170843.jpg" alt="Bridal Nails">
+                <div class="carousel-caption">Bridal Elegance - #NN001</div>
             </div>
+            <div class="carousel-item">
+                <img src="images/20240718_104057.jpg" alt="Party Nails">
+                <div class="carousel-caption">Party Glam - #NN002</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20231013_191445.jpg" alt="Indian Occassion">
+                <div class="carousel-caption">Indian Occassions - #NN003</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20240524_195724.jpg" alt="Wishes moment">
+                <div class="carousel-caption">Wishes Moment - #NN004</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG-20240528-WA0003.jpg" alt="Festive Shine">
+                <div class="carousel-caption">Festive shine - #NN005</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250731_220144.jpg" alt="Graduation Nails">
+                <div class="carousel-caption">Graduation Shine - #NN006</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20240901_190359.jpg" alt="Anniversary Nails">
+                <div class="carousel-caption">Anniversary Love - #NN007</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG_20241028_212405_739.jpg" alt="Birthday Nails">
+                <div class="carousel-caption">Birthday Sparkle - #NN008</div>
+            </div>
+        </div>
+    </div>
 
-  <div class="carousel-container">
- <h3 class="carousel-title">Signature Artistry</h3>
-<div class="carousel-nav">
+    <div class="carousel-container">
+        <h3 class="carousel-title">Signature Artistry</h3>
+        <div class="carousel-nav">
             <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
             <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
         </div>
-
- <div class="carousel">
-   <div class="carousel-item">
-<img src="images/20250319_224348.jpg" alt="Chrome Nails">
-  <div class="carousel-caption">Aura Chrome - #NN101</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20250731_204625.jpg" alt="Marble Nails">
-                        <div class="carousel-caption">Marble Magic - #NN102</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20250808_080634.jpg" alt="3D Art Nails">
-                        <div class="carousel-caption">3D Fantasy - #NN103</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/IMG-20240608-WA0003.jpg" alt="Ombre Nails">
-                        <div class="carousel-caption">Ombre Dreams - #NN104</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/IMG-20250808-WA0025.jpg" alt="Dry Flower Nails">
-                        <div class="carousel-caption">Floral Whisper - #NN105</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20240318_202144.jpg" alt="Glitter Nails">
-                        <div class="carousel-caption">Glittery Wishes - #NN106</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20240911_170459.jpg" alt="Abstract Nails">
-                        <div class="carousel-caption">Magic Abstract - #NN107</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/IMG20220501151915.jpg" alt="Metalic foil Nails">
-                        <div class="carousel-caption">Metalic Foil Shine - #NN108</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/Snapchat-1028333329.jpg" alt="French Nails">
-                        <div class="carousel-caption">French Elegent - #NN109</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20250216_150147.jpg" alt="Rhinestone Nails">
-                        <div class="carousel-caption">Rhinestone Plush - #NN110</div>
-                    </div>
-                </div>
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="images/20250319_224348.jpg" alt="Chrome Nails">
+                <div class="carousel-caption">Aura Chrome - #NN101</div>
             </div>
+            <div class="carousel-item">
+                <img src="images/20250731_204625.jpg" alt="Marble Nails">
+                <div class="carousel-caption">Marble Magic - #NN102</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250808_080634.jpg" alt="3D Art Nails">
+                <div class="carousel-caption">3D Fantasy - #NN103</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG-20240608-WA0003.jpg" alt="Ombre Nails">
+                <div class="carousel-caption">Ombre Dreams - #NN104</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG-20250808-WA0025.jpg" alt="Dry Flower Nails">
+                <div class="carousel-caption">Floral Whisper - #NN105</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20240318_202144.jpg" alt="Glitter Nails">
+                <div class="carousel-caption">Glittery Wishes - #NN106</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20240911_170459.jpg" alt="Abstract Nails">
+                <div class="carousel-caption">Magic Abstract - #NN107</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG20220501151915.jpg" alt="Metalic foil Nails">
+                <div class="carousel-caption">Metalic Foil Shine - #NN108</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/Snapchat-1028333329.jpg" alt="French Nails">
+                <div class="carousel-caption">French Elegent - #NN109</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250216_150147.jpg" alt="Rhinestone Nails">
+                <div class="carousel-caption">Rhinestone Plush - #NN110</div>
+            </div>
+        </div>
+    </div>
 
-            <div class="carousel-container">
-                <h3 class="carousel-title">Seasonal & Trendy</h3>
-
-<div class="carousel-nav">
+    <div class="carousel-container">
+        <h3 class="carousel-title">Seasonal & Trendy</h3>
+        <div class="carousel-nav">
             <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
             <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
         </div>
-                <div class="carousel">
-                    <div class="carousel-item">
-                        <img src="images/20250621_201543.jpg" alt="Summer Nails">
-                        <div class="carousel-caption">Summer Vibes - #NN201</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/Snapchat-1299582147.jpg" alt="Winter Nails">
-                        <div class="carousel-caption">Winter Frost - #NN202</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20250731_220220.jpg" alt="Beach Nails">
-                        <div class="carousel-caption">Beachy vibe - #NN203</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20241113_232938.jpg" alt="Spring Nails">
-                        <div class="carousel-caption">Spring Bloom - #NN204</div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="images/20241030_164511.jpg" alt="Autumn Nails">
-                        <div class="carousel-caption">Autumn Leaves - #NN205</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/IMG-20240528-WA0005.jpg" alt="Mountain Nails">
-                        <div class="carousel-caption">Mountain Vibe - #NN206</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/IMG-20240527-WA0028.jpg" alt="Weekend Nails">
-                        <div class="carousel-caption">Moody Weekends - #NN207</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/20250621_203446.jpg" alt="Slayy Nails">
-                        <div class="carousel-caption">Slay The Day - #NN208</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/20250621_205242.jpg" alt="Flex Nails">
-                        <div class="carousel-caption">Flex Onn - #NN209</div>
-                    </div>
-                     <div class="carousel-item">
-                        <img src="images/20240503_171824.jpg" alt="Glowup Nails">
-                        <div class="carousel-caption">The Glow Up - #NN210</div>
-                    </div>
-                </div>
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="images/20250621_201543.jpg" alt="Summer Nails">
+                <div class="carousel-caption">Summer Vibes - #NN201</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/Snapchat-1299582147.jpg" alt="Winter Nails">
+                <div class="carousel-caption">Winter Frost - #NN202</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250731_220220.jpg" alt="Beach Nails">
+                <div class="carousel-caption">Beachy vibe - #NN203</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20241113_232938.jpg" alt="Spring Nails">
+                <div class="carousel-caption">Spring Bloom - #NN204</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20241030_164511.jpg" alt="Autumn Nails">
+                <div class="carousel-caption">Autumn Leaves - #NN205</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG-20240528-WA0005.jpg" alt="Mountain Nails">
+                <div class="carousel-caption">Mountain Vibe - #NN206</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/IMG-20240527-WA0028.jpg" alt="Weekend Nails">
+                <div class="carousel-caption">Moody Weekends - #NN207</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250621_203446.jpg" alt="Slayy Nails">
+                <div class="carousel-caption">Slay The Day - #NN208</div>
+            </div>
+            <div class="carousel-item">
+                <img src="images/20250621_205242.jpg" alt="Flex Nails">
+                <div class="carousel-caption">Flex Onn - #NN209</div>
+            </div>
+            <div class="carousel-.item">
+                <img src="images/20240503_171824.jpg" alt="Glowup Nails">
+                <div class="carousel-caption">The Glow Up - #NN210</div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     <!-- Services Section -->
     <section id="services" class="services" data-aos="fade-up">
         <div class="container">
