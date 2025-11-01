@@ -483,6 +483,17 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            /* This makes the grid scroll horizontally */
+.category-grid {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+}
+
+/* This stops the circles from shrinking */
+.category-item {
+    flex-shrink: 0;
+}
             .hero h1 {
                 font-size: 2.5rem;
             }
