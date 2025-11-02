@@ -995,7 +995,7 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     let position = 0;
     let isPausedByClick = false;
     let isHovering = false;
-    let isDragging = false; // For desktop drag (optional)
+    let isDragging = false; // For desktop drag
 
     // --- Animation Engine ---
     function animateCarousel() {
@@ -1031,13 +1031,16 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         });
     }
 
-    // --- Mobile/Tablet Smart Swipe Controls ---
+    // --- UPDATED Mobile/Tablet Smart Swipe Controls ---
     let touchStartX, touchStartY, isSwiping, initialPosition;
+    let isVerticalScroll = false; // <-- NEW: Tracks vertical scrolling
+
     carousel.addEventListener('touchstart', (e) => {
         isHovering = true; // Pause animation during touch
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         isSwiping = false;
+        isVerticalScroll = false; // <-- NEW: Reset on new touch
         initialPosition = position;
     }, { passive: true });
 
@@ -1045,7 +1048,14 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         const deltaX = e.touches[0].clientX - touchStartX;
         const deltaY = e.touches[0].clientY - touchStartY;
 
-        if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { // Prioritize horizontal swipe
+        // NEW: Check for vertical scroll *first*
+        if (!isSwiping && Math.abs(deltaY) > Math.abs(deltaX) + 5) {
+            isVerticalScroll = true;
+            return; // This is a page scroll, so don't do anything else
+        }
+
+        // This is the original horizontal swipe logic
+        if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { 
             e.preventDefault();
             isSwiping = true;
             position = initialPosition + deltaX;
@@ -1054,11 +1064,19 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     }, { passive: false });
 
     carousel.addEventListener('touchend', () => {
-        if (!isSwiping) { // If it was a tap, not a swipe
+        // UPDATED: Only toggle pause if it was a true tap
+        // (i.e., NOT a horizontal swipe and NOT a vertical scroll)
+        if (!isSwiping && !isVerticalScroll) { 
             isPausedByClick = !isPausedByClick;
         }
+        
         isHovering = false; // Always resume animation after touch
-        setTimeout(() => { isSwiping = false; }, 50);
+        
+        // Reset flags
+        setTimeout(() => { 
+            isSwiping = false;
+            isVerticalScroll = false;
+        }, 50);
     });
 });
 </script>
