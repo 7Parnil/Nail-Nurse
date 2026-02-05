@@ -238,47 +238,45 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-/* --- HERO SECTION (JS POWERED) --- */
-
+/* --- HERO SECTION --- */
 .hero {
-    /* Mobile First Height (85vh) */
+    /* Mobile First Height */
     height: 85vh;
     min-height: 500px;
+    
+    /* Layout: Center Everything */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
+    
     position: relative;
     overflow: hidden; 
 }
 
-/* 1. The Container Window */
-.hero-slideshow-container {
+/* 1. The Slideshow Container */
+.hero-slideshow {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 0; /* Behind everything */
+    
+    display: flex; /* Lines images up horizontally */
+    /* We don't animate this with CSS keyframes anymore. JS handles it. */
 }
 
-/* 2. The Moving Track */
-.hero-track {
-    display: flex; /* Line images up horizontally */
-    height: 100%;
-    width: 100%;
-    /* We use JS to move this, so we add a transition for smooth sliding */
-    transition: transform 1s ease-in-out; 
-}
-
-/* 3. The Images */
-.hero-track img {
-    min-width: 100%; /* Each image is exactly 1 screen wide */
+/* 2. The Images */
+.hero-slideshow img {
+    min-width: 100%; /* Each image is 100% of the screen width */
     height: 100%;
     object-fit: cover;
+    flex-shrink: 0; /* Prevents squeezing */
 }
 
-/* 4. The Overlay */
+/* 3. The Shaded Overlay */
 .hero::before {
     content: '';
     position: absolute;
@@ -286,18 +284,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(245, 245, 245, 0.65);
-    z-index: 1;
+    background: rgba(245, 245, 245, 0.65); /* 65% White Shading */
+    z-index: 1; 
     backdrop-filter: blur(2px);
 }
 
+/* 4. The Content */
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 2; /* On top */
+    padding: 0 20px;
     color: var(--text-dark);
 }
 
-/* --- MOBILE TEXT FIX --- */
+/* Mobile Text Fixes */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 2rem; 
@@ -1196,39 +1196,31 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     });
 });
 </script>
-    <script>
-    const track = document.getElementById('heroTrack');
-    const slides = Array.from(track.children);
+<script>
+    const slideshow = document.getElementById('heroSlideshow');
     
-    // 1. Clone the first slide and add it to the end
-    // This creates the "bridge" for the seamless loop
-    const firstClone = slides[0].cloneNode(true);
-    track.appendChild(firstClone);
+    function startInfiniteSlide() {
+        // 1. Animate Slide to the Left (Show Image 2)
+        slideshow.style.transition = "transform 1s ease-in-out";
+        slideshow.style.transform = "translateX(-100%)";
 
-    let currentIndex = 0;
-    const totalSlides = slides.length + 1; // Original slides + 1 clone
-    const intervalTime = 4000; // Change image every 4 seconds
+        // 2. Wait for animation to finish (1000ms)
+        setTimeout(() => {
+            // 3. Move the first image to the very end of the list
+            // This is the "Endless Tape" trick
+            const firstImage = slideshow.firstElementChild;
+            slideshow.appendChild(firstImage);
 
-    function moveToNextSlide() {
-        currentIndex++;
-        
-        // Apply smooth transition for normal slides
-        track.style.transition = 'transform 1s ease-in-out';
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-        // Check if we reached the Clone (the fake first slide at the end)
-        if (currentIndex === totalSlides - 1) {
-            // Wait for the transition to finish (1s), then instantly snap back
-            setTimeout(() => {
-                track.style.transition = 'none'; // Remove animation
-                currentIndex = 0; // Reset index to 0 (the real first slide)
-                track.style.transform = `translateX(0)`; // Snap to start
-            }, 1000); // Wait exactly 1000ms (matches CSS transition time)
-        }
+            // 4. Instantly snap back to 0 (no animation)
+            // Since we moved the image, "0" now looks like the new image.
+            slideshow.style.transition = "none";
+            slideshow.style.transform = "translateX(0)";
+            
+        }, 1000);
     }
 
-    // Start the Loop
-    setInterval(moveToNextSlide, intervalTime);
+    // Run the slide every 4 seconds
+    setInterval(startInfiniteSlide, 4000);
 </script>
 </body>
 </html>
