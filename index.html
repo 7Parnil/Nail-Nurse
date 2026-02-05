@@ -612,32 +612,20 @@
     </div>
 </header>
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="logo">NAIL NURSE</div>
-            <h1>Your Dream Nails, Designed with Care</h1>
-            <div class="hero-btns">
-                <a href="https://wa.me/+919313625151" class="btn btn-primary">Book Your Atelier Visit</a>
-                <a href="#gallery" class="btn btn-outline">Explore The Designs</a>
-            </div>
-        </div>
-    </section>
-<section class="categories" data-aos="fade-up">
-    <div class="container">
-        <h2 class="section-title">Shop by Vibe</h2>
-        <div class="category-grid">
-            <div class="category-item">
-                <img src="images/IMG-20240608-WA0003.jpg" alt="Bridal Nails">
-                <h4>Bridal</h4>
-            </div>
-            <div class="category-item">
-                <img src="images/20250731_204552.jpg" alt="Party Nails">
-                <h4>Party</h4>
-            </div>
-            <div class="category-item">
-                <img src="images/20250621_205242.jpg" alt="Everyday Nails">
-                <h4>Everyday</h4>
-            </div>
+<section class="hero">
+    <div class="hero-slideshow">
+        <img src="images/20241211_170843.jpg" alt="Bridal Nail Art">
+        <img src="images/20250319_224348.jpg" alt="Chrome Nail Art">
+        <img src="images/20250621_201543.jpg" alt="Summer Nail Art">
+        <img src="images/20240901_190359.jpg" alt="Anniversary Nail Art">
+    </div>
+
+    <div class="hero-content">
+        <div class="logo">NAIL NURSE</div>
+        <h1>Your Dream Nails, Designed with Care</h1>
+        <div class="hero-btns">
+            <a href="https://wa.me/+919313625151" class="btn btn-primary">Book Your Atelier Visit</a>
+            <a href="#gallery" class="btn btn-outline">Explore The Designs</a>
         </div>
     </div>
 </section>
@@ -1079,6 +1067,78 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         }, 50);
     });
 });
+    /* --- Hero Slideshow & Animation Styles --- */
+
+/* 1. Container behind the overlay */
+.hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Sits at the very back */
+}
+
+/* 2. Individual Images */
+.hero-slideshow img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers screen without stretching */
+    opacity: 0; /* Start hidden */
+    animation: slideShow 20s infinite linear; /* The "Perfect Interval" loop */
+}
+
+/* 3. The Shading Overlay (Updated) */
+.hero::before {
+    /* We update your existing hero::before to be slightly stronger */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 0.8 opacity = 80% milky white. Text pops, images are subtle but visible. */
+    background: rgba(245, 245, 245, 0.8); 
+    z-index: 1; 
+    backdrop-filter: blur(2px); /* Softens the image for a premium look */
+}
+
+/* 4. Ensure Text stays on top */
+.hero-content {
+    position: relative;
+    z-index: 2; /* Sits above shading and images */
+}
+
+/* 5. Animation Delays (The Timing Math) */
+/* Total 20s. Each image gets 5s. */
+.hero-slideshow img:nth-child(1) { animation-delay: 0s; }
+.hero-slideshow img:nth-child(2) { animation-delay: 5s; }
+.hero-slideshow img:nth-child(3) { animation-delay: 10s; }
+.hero-slideshow img:nth-child(4) { animation-delay: 15s; }
+
+/* 6. The Animation Keyframes */
+@keyframes slideShow {
+    0% { 
+        opacity: 0; 
+        transform: scale(1.1); /* Start zoomed in slightly */
+    }
+    5% { 
+        opacity: 1; /* Fast fade in (1 second) */
+    } 
+    25% { 
+        opacity: 1; /* Stay fully visible for 4 seconds */
+        transform: scale(1); /* Slowly zoom out to normal */
+    }
+    30% { 
+        opacity: 0; /* Fade out as the next one fades in */
+    }
+    100% { 
+        opacity: 0; 
+    }
+}
 </script>
 </body>
 </html>
