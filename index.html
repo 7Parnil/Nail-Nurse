@@ -238,45 +238,42 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-/* --- HERO SECTION --- */
+/* --- HERO SECTION: FIXED --- */
 .hero {
-    /* Mobile First Height */
-    height: 85vh;
+    height: 85vh; /* Mobile height */
     min-height: 500px;
-    
-    /* Layout: Center Everything */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    
     position: relative;
     overflow: hidden; 
 }
 
-/* 1. The Slideshow Container */
+/* 1. The Sliding Container */
 .hero-slideshow {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Behind everything */
-    
+    z-index: 0;
     display: flex; /* Lines images up horizontally */
-    /* We don't animate this with CSS keyframes anymore. JS handles it. */
+    /* No CSS animation here. JS handles it. */
 }
 
 /* 2. The Images */
 .hero-slideshow img {
-    min-width: 100%; /* Each image is 100% of the screen width */
+    min-width: 100%; /* Force image to be full screen width */
+    width: 100%;
     height: 100%;
     object-fit: cover;
-    flex-shrink: 0; /* Prevents squeezing */
+    flex-shrink: 0; /* CRITICAL: Prevents images from getting squashed */
+    display: block;
 }
 
-/* 3. The Shaded Overlay */
+/* 3. The Overlay */
 .hero::before {
     content: '';
     position: absolute;
@@ -284,28 +281,20 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(245, 245, 245, 0.65); /* 65% White Shading */
-    z-index: 1; 
+    background: rgba(245, 245, 245, 0.65);
+    z-index: 1;
     backdrop-filter: blur(2px);
 }
 
-/* 4. The Content */
 .hero-content {
     position: relative;
-    z-index: 2; /* On top */
-    padding: 0 20px;
+    z-index: 2;
     color: var(--text-dark);
 }
 
-/* Mobile Text Fixes */
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2rem; 
-        line-height: 1.2;
-    }
-    .hero-content .logo {
-        font-size: 1.2rem;
-    }
+    .hero-content h1 { font-size: 2rem; line-height: 1.2; }
+    .hero-content .logo { font-size: 1.2rem; }
 }
 /* --- NEW CAROUSEL STYLES --- */
 .gallery {
