@@ -659,6 +659,48 @@
             opacity: 1;
             transform: translate(0);
         }
+        /* --- MOBILE OPTIMIZATION (Add at the very bottom of CSS) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Reduce Hero Height */
+    /* Changed from 100vh to 85vh. 
+       This makes it shorter so users can see there is content below. */
+    .hero {
+        height: 85vh; 
+        min-height: 500px; /* Prevents it from getting too squashed on tiny phones */
+    }
+
+    /* 2. Resize the Logo Text */
+    /* It was likely too dominant. We make it sleeker. */
+    .hero-content .logo {
+        font-size: 1.5rem; /* Adjust this number if you want it smaller */
+        margin-bottom: 0.5rem;
+    }
+
+    /* 3. Resize the Main Headline */
+    /* This is the big change. We reduce it to fit the narrower screen. */
+    .hero-content h1 {
+        font-size: 2.2rem; /* Much smaller than desktop to prevent wrapping issues */
+        line-height: 1.2; /* Tighter spacing between lines */
+        margin-bottom: 1.5rem;
+    }
+
+    /* 4. Tweak the Buttons */
+    /* We make them slightly more compact for mobile fingers */
+    .hero-btns .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    /* Optional: Stack buttons if they feel too crowded side-by-side */
+    /* Uncomment the lines below if you prefer them one on top of another */
+    /* .hero-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    } 
+    */
+}
     </style>
 </head>
 <body>
