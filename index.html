@@ -1067,77 +1067,59 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         }, 50);
     });
 });
-    /* --- Hero Slideshow & Animation Styles --- */
+   /* --- Hero Slideshow Styles --- */
 
-/* 1. Container behind the overlay */
+/* 1. Position the slideshow container behind everything */
 .hero-slideshow {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0; /* Sits at the very back */
+    z-index: 0; /* Behind the shading overlay */
 }
 
-/* 2. Individual Images */
+/* 2. Style the images to cover the screen and animate */
 .hero-slideshow img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures image covers screen without stretching */
+    object-fit: cover; /* Ensures image covers the screen without stretching */
     opacity: 0; /* Start hidden */
-    animation: slideShow 20s infinite linear; /* The "Perfect Interval" loop */
+    animation: slideShow 20s infinite ease-in-out; /* The magic animation */
 }
 
-/* 3. The Shading Overlay (Updated) */
+/* 3. Update the Overlay (The "Shade") */
+/* This ensures the text pops out. We increased opacity slightly for better readability. */
 .hero::before {
-    /* We update your existing hero::before to be slightly stronger */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* 0.8 opacity = 80% milky white. Text pops, images are subtle but visible. */
-    background: rgba(245, 245, 245, 0.8); 
-    z-index: 1; 
-    backdrop-filter: blur(2px); /* Softens the image for a premium look */
+    /* A creamy white overlay that lets the images show through faintly */
+    background: rgba(245, 245, 245, 0.85); 
+    z-index: 1; /* On top of images, behind text */
+    backdrop-filter: blur(2px); /* Optional: Adds a soft blur for a premium feel */
 }
 
-/* 4. Ensure Text stays on top */
-.hero-content {
-    position: relative;
-    z-index: 2; /* Sits above shading and images */
-}
-
-/* 5. Animation Delays (The Timing Math) */
-/* Total 20s. Each image gets 5s. */
+/* 4. Animation Delays */
+/* This ensures images appear one after another */
 .hero-slideshow img:nth-child(1) { animation-delay: 0s; }
 .hero-slideshow img:nth-child(2) { animation-delay: 5s; }
 .hero-slideshow img:nth-child(3) { animation-delay: 10s; }
 .hero-slideshow img:nth-child(4) { animation-delay: 15s; }
 
-/* 6. The Animation Keyframes */
+/* 5. The Keyframes */
 @keyframes slideShow {
-    0% { 
-        opacity: 0; 
-        transform: scale(1.1); /* Start zoomed in slightly */
-    }
-    5% { 
-        opacity: 1; /* Fast fade in (1 second) */
-    } 
-    25% { 
-        opacity: 1; /* Stay fully visible for 4 seconds */
-        transform: scale(1); /* Slowly zoom out to normal */
-    }
-    30% { 
-        opacity: 0; /* Fade out as the next one fades in */
-    }
-    100% { 
-        opacity: 0; 
-    }
+    0% { opacity: 0; transform: scale(1.1); } /* Start hidden & slightly zoomed in */
+    5% { opacity: 1; } /* Fade in */
+    25% { opacity: 1; transform: scale(1); } /* Stay visible & zoom out slowly */
+    30% { opacity: 0; } /* Fade out */
+    100% { opacity: 0; }
 }
 </script>
 </body>
