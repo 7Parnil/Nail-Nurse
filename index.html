@@ -238,42 +238,39 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-/* --- Hero Section & Slideshow Fixes --- */
+/* --- Hero Carousel Styles --- */
 
 .hero {
     height: 100vh;
     display: flex;
-    align-items: center; /* Vertically Centers text */
-    justify-content: center; /* Horizontally Centers text */
+    align-items: center;
+    justify-content: center;
     text-align: center;
     position: relative;
-    overflow: hidden;
+    overflow: hidden; /* Critical: Hides the images that are "off screen" */
 }
 
-/* 1. Slideshow Container (Background Layer) */
+/* 1. The Carousel Strip (Holds all 5 images in a row) */
 .hero-slideshow {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 500%; /* 5 images x 100% width each */
     height: 100%;
-    z-index: 0; /* Bottom Layer */
+    display: flex; /* Lines them up horizontally */
+    z-index: 0;
+    /* The Slide Animation */
+    animation: carouselSlide 20s infinite ease-in-out;
 }
 
-/* 2. The Images (Full Landscape Coverage) */
+/* 2. The Individual Images */
 .hero-slideshow img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    width: 20%; /* Each image takes 1/5th of the strip (which is 100% of the screen) */
     height: 100%;
-    object-fit: cover; /* Ensures image fills screen without stretching */
-    opacity: 0; /* Hidden by default */
-    animation: slideShow 20s infinite ease-in-out; /* Smooth loop */
+    object-fit: cover;
 }
 
-/* 3. The "Shade" Overlay (Middle Layer) */
-/* This makes the text pop while keeping images visible */
+/* 3. The Overlay (Keeps text readable) */
 .hero::before {
     content: '';
     position: absolute;
@@ -281,37 +278,36 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* 65% White Shading - Adjust this if you want it lighter/darker */
-    background: rgba(245, 245, 245, 0.65); 
-    z-index: 1; /* Sits on top of images */
-    backdrop-filter: blur(3px); /* Optional: Slight blur for premium feel */
+    background: rgba(245, 245, 245, 0.65); /* 65% White Shading */
+    z-index: 1;
+    backdrop-filter: blur(2px);
 }
 
-/* 4. The Text Content (Top Layer) */
 .hero-content {
     position: relative;
-    z-index: 2; /* Sits on top of the shading */
-    max-width: 800px;
-    padding: 0 20px;
-    /* Ensure text is dark and readable */
-    color: var(--text-dark); 
+    z-index: 2;
+    color: var(--text-dark);
 }
 
-/* 5. Animation Keyframes (Perfect Interval) */
-/* Images fade in/out smoothly without white flashes */
-@keyframes slideShow {
-    0% { opacity: 0; transform: scale(1.1); }
-    5% { opacity: 1; }
-    25% { opacity: 1; transform: scale(1); }
-    30% { opacity: 0; }
-    100% { opacity: 0; }
+/* 4. The Sliding Keyframes */
+/* Moves the strip left step-by-step */
+@keyframes carouselSlide {
+    0%, 20% {
+        transform: translateX(0); /* Show Image 1 */
+    }
+    25%, 45% {
+        transform: translateX(-20%); /* Slide to Image 2 */
+    }
+    50%, 70% {
+        transform: translateX(-40%); /* Slide to Image 3 */
+    }
+    75%, 95% {
+        transform: translateX(-60%); /* Slide to Image 4 */
+    }
+    100% {
+        transform: translateX(-80%); /* Slide to Image 5 (Clone of 1) */
+    }
 }
-
-/* 6. Animation Delays (Sequence) */
-.hero-slideshow img:nth-child(1) { animation-delay: 0s; }
-.hero-slideshow img:nth-child(2) { animation-delay: 5s; }
-.hero-slideshow img:nth-child(3) { animation-delay: 10s; }
-.hero-slideshow img:nth-child(4) { animation-delay: 15s; }
 /* --- NEW CAROUSEL STYLES --- */
 .gallery {
     padding: 60px 0; /* no Vertical padding */
