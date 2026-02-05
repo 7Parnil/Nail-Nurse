@@ -240,44 +240,36 @@
         }
 /* --- HERO SECTION: HYBRID FIX --- */
 .hero {
-    height: 85vh; /* Mobile height */
-    min-height: 500px;
+    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    overflow: hidden; 
+    overflow: hidden; /* Critical: Hides the images that are "off screen" */
 }
 
-/* 1. The Container */
+/* 1. The Carousel Strip (Holds all 5 images in a row) */
 .hero-slideshow {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 500%; /* 5 images x 100% width each */
     height: 100%;
+    display: flex; /* Lines them up horizontally */
     z-index: 0;
-    display: flex; /* Horizontal Line */
+    /* The Slide Animation */
+    animation: carouselSlide 20s infinite ease-in-out;
 }
 
-/* 2. The Images */
+/* 2. The Individual Images */
 .hero-slideshow img {
-    /* Force every image to be 100% of the screen width */
-    flex: 0 0 100%; 
-    width: 100%;
+    width: 20%; /* Each image takes 1/5th of the strip (which is 100% of the screen) */
     height: 100%;
     object-fit: cover;
 }
 
-/* 3. The Animation Class (Activated by JS) */
-.hero-slideshow.active {
-    /* 16s Total: 4s per image */
-    animation: hybridSlide 16s infinite ease-in-out;
-}
-
-/* 4. The Overlay */
+/* 3. The Overlay (Keeps text readable) */
 .hero::before {
     content: '';
     position: absolute;
@@ -285,7 +277,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(245, 245, 245, 0.65);
+    background: rgba(245, 245, 245, 0.65); /* 65% White Shading */
     z-index: 1;
     backdrop-filter: blur(2px);
 }
@@ -296,31 +288,24 @@
     color: var(--text-dark);
 }
 
-/* 5. The Keyframes */
-/* Logic: We have 8 images (4 Real + 4 Clones made by JS).
-   We slide from 0% to -400% (The end of the 4th image).
-   Then we snap back to 0%. */
-@keyframes hybridSlide {
-    /* Image 1 */
-    0%, 20%   { transform: translateX(0%); }
-    
-    /* Image 2 */
-    25%, 45%  { transform: translateX(-100%); }
-    
-    /* Image 3 */
-    50%, 70%  { transform: translateX(-200%); }
-    
-    /* Image 4 */
-    75%, 95%  { transform: translateX(-300%); }
-    
-    /* SNAP RESET to Image 1 (which sits at -400%) */
-    100%      { transform: translateX(-400%); }
-}
-
-/* Mobile Text */
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2rem; line-height: 1.2; }
-    .hero-content .logo { font-size: 1.2rem; }
+/* 4. The Sliding Keyframes */
+/* Moves the strip left step-by-step */
+@keyframes carouselSlide {
+    0%, 20% {
+        transform: translateX(0); /* Show Image 1 */
+    }
+    25%, 45% {
+        transform: translateX(-20%); /* Slide to Image 2 */
+    }
+    50%, 70% {
+        transform: translateX(-40%); /* Slide to Image 3 */
+    }
+    75%, 95% {
+        transform: translateX(-60%); /* Slide to Image 4 */
+    }
+    100% {
+        transform: translateX(-80%); /* Slide to Image 5 (Clone of 1) */
+    }
 }
 /* --- NEW CAROUSEL STYLES --- */
 .gallery {
@@ -1210,19 +1195,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         }, 50);
     });
 });
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const track = document.getElementById('heroSlideshow');
-        
-        // 1. Copy the images to create the loop buffer
-        // (This turns your 4 images into 8 images in the browser memory)
-        track.innerHTML += track.innerHTML;
-
-        // 2. Start the animation
-        // We add the class now to ensure it starts only after copying is done
-        track.classList.add('active');
-    });
 </script>
 </body>
 </html>
