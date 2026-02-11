@@ -8,116 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-   /* Header Styles */
-.main-header {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    background-color: transparent; /* Starts transparent */
-    padding: 20px;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    transform: translateY(0); /* Starts visible */
-}
-
-.main-header.scrolled {
-    background-color: var(--accent); /* Your beige background */
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.header-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8em;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-weight: bold;
-    margin: 0 20px; /* Adds space around the logo */
-}
-
-.main-nav {
-    display: flex;
-}
-.main-nav a {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-dark);
-    text-decoration: none;
-    margin-left: 15px;
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 8px 20px; /* This creates the space inside the box */
-    border: 2px solid var(--text-dark); /* This creates the border */
-    border-radius: 30px; /* This rounds the corners */
-    transition: all 0.3s ease; /* For a smooth hover effect */
-}
-
-.main-nav a:hover {
-    background-color: var(--text-dark); /* The box fills with color on hover */
-    color: var(--text-light); /* The text turns light on hover */
-}
-.nav-toggle {
-    display: none; /* Stays hidden on desktop */
-    cursor: pointer;
-    flex-direction: column;
-    justify-content: space-around; /* Use space-around for better spacing */
-    width: 30px;
-    height: 25px; /* A bit more height */
-    position: relative; /* Needed for positioning */
-    z-index: 1002; /* Make sure it's above the menu */
-}
-
-.nav-toggle span {
-    height: 3px;
-    background-color: var(--text-dark);
-    width: 100%;
-    border-radius: 2px;
-    transition: all 0.3s ease-in-out;
-}
-
-/* This is the animation part */
-.nav-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-.nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-.nav-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
-}
-
-/* Basic Responsive adjustments for header (optional) */
-@media (max-width: 768px) {
-    .main-nav {
-        display: none; /* Hide nav by default on small screens */
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #E3D5D1;
-        padding: 10px 0;
-        text-align: center;
-    }
-    .main-nav.active {
-        display: flex;
-    }
-    .main-nav a {
-        margin: 10px 0;
-    }
-    .nav-toggle {
-        display: flex;
-    }
-}
+        /* --- GLOBAL VARIABLES --- */
         :root {
             --bg-light: #F5F5F5;
             --accent: #E3D5D1;
@@ -126,11 +18,7 @@
             --transition: all 0.3s ease;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -151,10 +39,9 @@
             padding: 0 20px;
         }
 
-        section {
-            padding: 80px 0;
-        }
+        section { padding: 80px 0; }
 
+        /* --- BUTTONS --- */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -180,11 +67,114 @@
         }
 
         .btn-primary:hover, .btn-outline:hover {
-    transform: translateY(-2px); /* A smaller, more subtle lift */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* A softer shadow */
-    opacity: 0.9; /* Gently fades the button */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            opacity: 0.9;
         }
-        /* Hero Section */
+
+        /* --- HEADER --- */
+        .main-header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: transparent;
+            padding: 20px;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+            transform: translateY(0);
+        }
+
+        .main-header.scrolled {
+            background-color: var(--accent);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 20px;
+        }
+
+        .main-nav { display: flex; }
+        
+        .main-nav a {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border: 2px solid var(--text-dark);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--text-dark);
+            color: var(--text-light);
+        }
+
+        /* --- MOBILE MENU --- */
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .nav-toggle span {
+            height: 3px;
+            background-color: var(--text-dark);
+            width: 100%;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+        .main-nav-mobile {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background-color: var(--accent);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+            transform: translateY(-150%);
+            transition: transform 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-nav-mobile.active { transform: translateY(0); }
+        .main-nav-mobile a {
+            margin: 15px 0;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -195,6 +185,23 @@
             overflow: hidden;
         }
 
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500%;
+            height: 100%;
+            display: flex;
+            z-index: 0;
+            animation: carouselSlide 20s infinite ease-in-out;
+        }
+
+        .hero-slideshow img {
+            width: 20%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -202,13 +209,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(245, 245, 245, 0.7), rgba(245, 245, 245, 0.7));
+            background: rgba(245, 245, 245, 0.65);
             z-index: 1;
+            backdrop-filter: blur(2px);
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
+            color: var(--text-dark);
             max-width: 800px;
             padding: 0 20px;
         }
@@ -238,723 +247,349 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-/* --- HERO SECTION: HYBRID FIX --- */
-.hero {
-    height: 85vh; /* Mobile height */
-    min-height: 500px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden; 
-    overflow: hidden; /* Critical: Hides the images that are "off screen" */
-}
 
-/* 1. The Container */
-/* 1. The Carousel Strip (Holds all 5 images in a row) */
-.hero-slideshow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    width: 500%; /* 5 images x 100% width each */
-    height: 100%;
-    display: flex; /* Lines them up horizontally */
-    z-index: 0;
-    display: flex; /* Horizontal Line */
-    /* The Slide Animation */
-    animation: carouselSlide 20s infinite ease-in-out;
-}
-
-/* 2. The Images */
-/* 2. The Individual Images */
-.hero-slideshow img {
-    /* Force every image to be 100% of the screen width */
-    flex: 0 0 100%; 
-    width: 100%;
-    width: 20%; /* Each image takes 1/5th of the strip (which is 100% of the screen) */
-    height: 100%;
-    object-fit: cover;
-}
-
-/* 3. The Animation Class (Activated by JS) */
-.hero-slideshow.active {
-    /* 16s Total: 4s per image */
-    animation: hybridSlide 16s infinite ease-in-out;
-}
-
-/* 4. The Overlay */
-/* 3. The Overlay (Keeps text readable) */
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(245, 245, 245, 0.65);
-    background: rgba(245, 245, 245, 0.65); /* 65% White Shading */
-    z-index: 1;
-    backdrop-filter: blur(2px);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    color: var(--text-dark);
-}
-
-/* 5. The Keyframes */
-/* Logic: We have 8 images (4 Real + 4 Clones made by JS).
-   We slide from 0% to -400% (The end of the 4th image).
-   Then we snap back to 0%. */
-@keyframes hybridSlide {
-    /* Image 1 */
-    0%, 20%   { transform: translateX(0%); }
-    
-    /* Image 2 */
-    25%, 45%  { transform: translateX(-100%); }
-    
-    /* Image 3 */
-    50%, 70%  { transform: translateX(-200%); }
-    
-    /* Image 4 */
-    75%, 95%  { transform: translateX(-300%); }
-    
-    /* SNAP RESET to Image 1 (which sits at -400%) */
-    100%      { transform: translateX(-400%); }
-}
-
-/* Mobile Text */
-@media (max-width: 768px) {
-    .hero-content h1 { font-size: 2rem; line-height: 1.2; }
-    .hero-content .logo { font-size: 1.2rem; }
-/* 4. The Sliding Keyframes */
-/* Moves the strip left step-by-step */
-@keyframes carouselSlide {
-    0%, 20% {
-        transform: translateX(0); /* Show Image 1 */
-    }
-    25%, 45% {
-        transform: translateX(-20%); /* Slide to Image 2 */
-    }
-    50%, 70% {
-        transform: translateX(-40%); /* Slide to Image 3 */
-    }
-    75%, 95% {
-        transform: translateX(-60%); /* Slide to Image 4 */
-    }
-    100% {
-        transform: translateX(-80%); /* Slide to Image 5 (Clone of 1) */
-    }
-}
-/* --- NEW CAROUSEL STYLES --- */
-.gallery {
-    padding: 60px 0; /* no Vertical padding */
-}
-.section-title {
-    text-align: center;
-    margin-bottom: 60px;
-    font-size: 3rem; /* Restoring the larger title size */
-}
-
-.carousel-container {
-    margin-bottom: 60px;
-    overflow: hidden;
-    position: relative;
-}
-
-.carousel-title {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.2rem;
-    color: var(--text-dark);
-}
-
-.carousel {
-    display: flex;
-    position: relative;
-    left: 0;
-}
-
-.carousel-item {
-    width: 300px; /* Original 600x600 feel */
-    height: 300px;
-    margin: 0 10px;
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 15px;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* New Arrow Styles */
-.carousel-nav {
-    display: none; /* Hidden by default on mobile */
-    position: absolute;
-    top: 50%; /* Perfect vertical center */
-
-    /* These 3 lines are the change */
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centering trick */
-    max-width: 1250px; /* 1200px content + 25px padding each side */
-
-    width: 100%;
-    justify-content: space-between;
-    padding: 0 25px;
-    pointer-events: none;
-    z-index: 10;
-}
-
-.nav-arrow {
-    pointer-events: all;
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    color: var(--text-dark);
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.nav-arrow:hover {
-    background-color: white;
-    transform: scale(1.1);
-}
-
-/* Show arrows permanently on desktop */
-@media (min-width: 1024px) {
-    .carousel-nav {
-        display: flex;
-    }
-}
-.categories {
-    background-color: white;
-}
-.category-grid {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-.category-item {
-    text-align: center;
-    cursor: pointer;
-}
-.category-item img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid var(--accent);
-    transition: transform 0.3s ease;
-}
-.category-item:hover img {
-    transform: scale(1.05);
-}
-.category-item h4 {
-    margin-top: 15px;
-    font-size: 1.2rem;
-}
-        /* Services Section */
-        .services {
-            padding: 80px 0;
+        @keyframes carouselSlide {
+            0%, 20% { transform: translateX(0); }
+            25%, 45% { transform: translateX(-20%); }
+            50%, 70% { transform: translateX(-40%); }
+            75%, 95% { transform: translateX(-60%); }
+            100% { transform: translateX(-80%); }
         }
 
-        .service-category {
-            margin-bottom: 50px;
+        /* --- CAROUSEL & GALLERY --- */
+        .gallery { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 60px; font-size: 3rem; }
+        .carousel-container { margin-bottom: 60px; overflow: hidden; position: relative; }
+        .carousel-title { text-align: center; margin-bottom: 40px; font-size: 2.2rem; color: var(--text-dark); }
+        
+        .carousel { display: flex; position: relative; left: 0; }
+        .carousel-item {
+            width: 300px; height: 300px; margin: 0 10px; position: relative;
+            border-radius: 10px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            flex-shrink: 0; transition: transform 0.3s ease;
         }
+        .carousel-item img { width: 100%; height: 100%; object-fit: cover; }
+        .carousel-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.6); color: white; padding: 15px;
+            text-align: center; font-weight: 500;
+        }
+        
+        .carousel-nav {
+            display: none; position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); max-width: 1250px;
+            width: 100%; justify-content: space-between; padding: 0 25px;
+            pointer-events: none; z-index: 10;
+        }
+        .nav-arrow {
+            pointer-events: all; background-color: rgba(255, 255, 255, 0.7);
+            border: none; border-radius: 50%; width: 50px; height: 50px;
+            color: var(--text-dark); font-size: 20px; cursor: pointer;
+            transition: all 0.2s ease; display: flex; align-items: center;
+            justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .nav-arrow:hover { background-color: white; transform: scale(1.1); }
+        @media (min-width: 1024px) { .carousel-nav { display: flex; } }
 
+        /* --- CATEGORIES --- */
+        .categories { background-color: white; }
+        .category-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .category-item { text-align: center; cursor: pointer; }
+        .category-item img {
+            width: 150px; height: 150px; border-radius: 50%;
+            object-fit: cover; border: 4px solid var(--accent); transition: transform 0.3s ease;
+        }
+        .category-item:hover img { transform: scale(1.05); }
+        .category-item h4 { margin-top: 15px; font-size: 1.2rem; }
+
+        /* --- SERVICES SECTION --- */
+        .services { padding: 80px 0; }
+        .service-category { margin-bottom: 50px; }
         .service-category h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            font-size: 1.8rem; margin-bottom: 20px; padding-bottom: 10px;
             border-bottom: 2px solid var(--accent);
         }
-
         .service-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
+            display: flex; justify-content: space-between; padding: 15px 0;
             border-bottom: 1px solid #ddd;
         }
-
-        .service-item:last-child {
-            border-bottom: none;
-        }
-
-        .service-name {
-            font-weight: 500;
-        }
-
-        .service-price {
-            font-weight: 600;
-        }
+        .service-item:last-child { border-bottom: none; }
+        .service-name { font-weight: 500; }
+        .service-price { font-weight: 600; }
 
         .booking-process {
-            background-color: var(--accent);
-            padding: 40px;
-            border-radius: 10px;
-            margin-top: 50px;
-            text-align: center;
+            background-color: var(--accent); padding: 40px; border-radius: 10px;
+            margin-top: 50px; text-align: center;
         }
-
-        .booking-process h3 {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .booking-step {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
+        .booking-process h3 { margin-bottom: 20px; font-size: 1.8rem; }
+        .booking-step { display: flex; align-items: center; margin-bottom: 15px; text-align: left; }
         .step-number {
-            background-color: var(--text-dark);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
+            background-color: var(--text-dark); color: white; width: 30px; height: 30px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; flex-shrink: 0;
         }
 
-        /* Socials Section */
-        .socials {
-            text-align: center;
-            padding: 80px 0;
-            background-color: white;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
+        /* --- SOCIALS & FOOTER --- */
+        .socials { text-align: center; padding: 80px 0; background-color: white; }
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
         .social-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--text-dark);
-            color: white;
-            font-size: 1.8rem;
-            transition: var(--transition);
-            text-decoration: none;
+            width: 60px; height: 60px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; background-color: var(--text-dark);
+            color: white; font-size: 1.8rem; transition: var(--transition); text-decoration: none;
         }
+        .social-icon:hover { transform: scale(1.1); }
+        footer { background-color: var(--text-dark); color: white; text-align: center; padding: 30px 0; }
 
-        .social-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--text-dark);
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-        }
-
-        /* Mobile Responsiveness */
+        /* --- MOBILE TWEAKS --- */
         @media (max-width: 768px) {
-            /* This makes the grid scroll horizontally */
-.category-grid {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-}
+            .main-nav { display: none; }
+            .nav-toggle { display: flex; }
+            
+            .category-grid { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
+            .category-item { flex-shrink: 0; }
 
-/* This stops the circles from shrinking */
-.category-item {
-    flex-shrink: 0;
-}
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-btns {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn {
-                width: 80%;
-                max-width: 300px;
-            }
-
-            .carousel-item {
-                width: 250px;
-                height: 250px;
-            }
-
-            .service-item {
-                flex-direction: column;
-            }
-
-            .service-price {
-                margin-top: 5px;
-            }
-
-            .social-icons {
-                flex-direction: column;
-                align-items: center;
-            }
-/* This is the new code for the mobile dropdown */
-.main-nav-mobile {
-    position: fixed; /* This is key for positioning */
-    top: 70px; /* Adjust this value to be the height of your header */
-    left: 0;
-    width: 100%;
-    background-color: var(--accent); /* Your beige background */
-    padding: 10px 0;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    z-index: 999; /* Make sure it's above other content */
-
-    /* Animation setup */
-    transform: translateY(-150%); /* Start hidden above the viewport */
-    transition: transform 0.4s ease-in-out;
-    display: flex;
-    flex-direction: column;
-}
-
-.main-nav-mobile.active {
-    transform: translateY(0); /* This makes it slide down into view */
-}
-
-.main-nav-mobile a {
-    margin: 15px 0;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-size: 1.2em;
-}
-/* Style for the close button */
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 2.5em;
-    color: var(--text-dark);
-    cursor: pointer;
-}
+            .hero { height: 85vh; min-height: 500px; }
+            .hero-content .logo { font-size: 1.5rem; margin-bottom: 0.5rem; }
+            .hero-content h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 1.5rem; }
+            .hero-btns .btn { padding: 10px 20px; font-size: 0.9rem; }
+            
+            .carousel-item { width: 250px; height: 250px; }
+            .service-item { flex-direction: column; }
+            .service-price { margin-top: 5px; }
         }
 
-        /* Animations */
-        [data-aos] {
-            opacity: 0;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        [data-aos="fade-up"] {
-            transform: translateY(30px);
-        }
-
-        [data-aos="fade-down"] {
-            transform: translateY(-30px);
-        }
-
-        [data-aos="fade-right"] {
-            transform: translateX(-30px);
-        }
-
-        [data-aos="fade-left"] {
-            transform: translateX(30px);
-        }
-
-        [data-aos].aos-animate {
-            opacity: 1;
-            transform: translate(0);
-        }
-        /* --- MOBILE OPTIMIZATION (Add at the very bottom of CSS) --- */
-@media (max-width: 768px) {
-
-    /* 1. Reduce Hero Height */
-    /* Changed from 100vh to 85vh. 
-       This makes it shorter so users can see there is content below. */
-    .hero {
-        height: 85vh; 
-        min-height: 500px; /* Prevents it from getting too squashed on tiny phones */
-    }
-
-    /* 2. Resize the Logo Text */
-    /* It was likely too dominant. We make it sleeker. */
-    .hero-content .logo {
-        font-size: 1.5rem; /* Adjust this number if you want it smaller */
-        margin-bottom: 0.5rem;
-    }
-
-    /* 3. Resize the Main Headline */
-    /* This is the big change. We reduce it to fit the narrower screen. */
-    .hero-content h1 {
-        font-size: 2.2rem; /* Much smaller than desktop to prevent wrapping issues */
-        line-height: 1.2; /* Tighter spacing between lines */
-        margin-bottom: 1.5rem;
-    }
-
-    /* 4. Tweak the Buttons */
-    /* We make them slightly more compact for mobile fingers */
-    .hero-btns .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-
-    /* Optional: Stack buttons if they feel too crowded side-by-side */
-    /* Uncomment the lines below if you prefer them one on top of another */
-    /* .hero-btns {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    } 
-    */
-}
+        [data-aos] { opacity: 0; transition: opacity 0.6s ease, transform 0.6s ease; }
+        [data-aos="fade-up"] { transform: translateY(30px); }
+        [data-aos].aos-animate { opacity: 1; transform: translate(0); }
     </style>
 </head>
 <body>
-   <header id="main-header" class="main-header">
-    <div class="header-content">
-        <nav class="main-nav nav-left">
-            <a href="#gallery">Press-Ons</a>
-        </nav>
-        <a href="#" class="header-logo">NAIL NURSE</a>
-        <nav class="main-nav nav-right">
-            <a href="#services">Atelier</a>
-            <a href="#socials">Connect</a>
-        </nav>
-        <div class="nav-toggle" id="nav-toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</header>
-    <!-- Hero Section -->
-   <section class="hero">
-    <div class="hero-slideshow">
-        <img src="images/20241211_170843.jpg" alt="Bridal Nail Art">
-        <img src="images/20250319_224348.jpg" alt="Chrome Nail Art">
-        <img src="images/20250621_201543.jpg" alt="Summer Nail Art">
-        <img src="images/20240901_190359.jpg" alt="Anniversary Nail Art">
-    </div>
 
-    <div class="hero-content">
-        <div class="logo">NAIL NURSE</div>
-        <h1>Your Dream Nails, Designed with Care</h1>
-        <div class="hero-btns">
-            <a href="https://wa.me/+919313625151" class="btn btn-primary">Book Your Atelier Visit</a>
-            <a href="#gallery" class="btn btn-outline">Explore The Designs</a>
-        </div>
-    </div>
-</section>
-<section class="categories" data-aos="fade-up">
-    <div class="container">
-        <h2 class="section-title">Shop by Vibe</h2>
-        <div class="category-grid">
-            <div class="category-item">
-                <img src="images/IMG-20240608-WA0003.jpg" alt="Bridal Nails">
-                <h4>Bridal</h4>
-            </div>
-            <div class="category-item">
-                <img src="images/20250731_204552.jpg" alt="Party Nails">
-                <h4>Party</h4>
-            </div>
-            <div class="category-item">
-                <img src="images/20250621_205242.jpg" alt="Everyday Nails">
-                <h4>Everyday</h4>
+    <header id="main-header" class="main-header">
+        <div class="header-content">
+            <nav class="main-nav nav-left">
+                <a href="#gallery">Press-Ons</a>
+            </nav>
+            <a href="#" class="header-logo">NAIL NURSE</a>
+            <nav class="main-nav nav-right">
+                <a href="#services">Atelier</a>
+                <a href="#socials">Connect</a>
+            </nav>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
-    </div>
-</section>
-   <!-- Gallery Section -->
+    </header>
+
+    <section class="hero">
+        <div class="hero-slideshow">
+            <img src="images/20241211_170843.jpg" alt="Bridal Nail Art">
+            <img src="images/20250319_224348.jpg" alt="Chrome Nail Art">
+            <img src="images/20250621_201543.jpg" alt="Summer Nail Art">
+            <img src="images/20240901_190359.jpg" alt="Anniversary Nail Art">
+            <img src="images/20241211_170843.jpg" alt="Bridal Nail Art"> 
+        </div>
+        <div class="hero-content">
+            <div class="logo">NAIL NURSE</div>
+            <h1>Medical Standards.<br>Artistic Flair.</h1>
+            <p style="font-size: 1.2rem; margin-bottom: 20px; opacity: 0.9;">
+                Ahmedabad’s First Nurse-Led Nail Atelier
+            </p>
+            <div class="hero-btns">
+                <a href="https://wa.me/+919313625151" class="btn btn-primary">Book Your Atelier Visit</a>
+                <a href="#gallery" class="btn btn-outline">Explore The Designs</a>
+            </div> 
+        </div>
+    </section>
+
+    <section style="background-color: #f9f9f9; padding: 40px 20px; text-align: center; border-bottom: 1px solid #eee;">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h3 style="font-size: 1.5rem; margin-bottom: 15px; color: #333; font-family: inherit;">
+                Why Choose a Nurse for Your Nails?
+            </h3>
+            <p style="font-size: 1rem; line-height: 1.6; color: #555;">
+                Hi, I’m <strong style="color: #000;">Parnil</strong>. As a qualified <strong>Nurse & Artist</strong>, 
+                I combine medical-grade hygiene with high-fashion artistry. 
+                Unlike typical salons, I focus on the anatomy of your natural nail, 
+                ensuring a damage-free, healthy foundation for every masterpiece.
+            </p>
+        </div>
+    </section>
+
+    <section class="categories" data-aos="fade-up">
+        <div class="container">
+            <h2 class="section-title">Shop by Vibe</h2>
+            <div class="category-grid">
+                <div class="category-item">
+                    <img src="images/IMG-20240608-WA0003.jpg" alt="Bridal Nails">
+                    <h4>Bridal</h4>
+                </div>
+                <div class="category-item">
+                    <img src="images/20250731_204552.jpg" alt="Party Nails">
+                    <h4>Party</h4>
+                </div>
+                <div class="category-item">
+                    <img src="images/20250621_205242.jpg" alt="Everyday Nails">
+                    <h4>Everyday</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="gallery" class="gallery" data-aos="fade-up" data-aos-duration="1000">
+        <div class="container">
+            <h2 class="section-title">The Press-On Collection</h2>
+        </div>
 
-    <div class="container">
-        <h2 class="section-title">The Press-On Collection</h2>
-    </div>
+        <div class="carousel-container">
+            <h3 class="carousel-title">For Every Celebration</h3>
+            <div class="carousel-nav">
+                <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel">
+                <div class="carousel-item">
+                    <img src="images/20241211_170843.jpg" alt="Bridal Nails">
+                    <div class="carousel-caption">Bridal Elegance - #NN001</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240718_104057.jpg" alt="Party Nails">
+                    <div class="carousel-caption">Party Glam - #NN002</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20231013_191445.jpg" alt="Indian Occassion">
+                    <div class="carousel-caption">Indian Occassions - #NN003</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240524_195724.jpg" alt="Wishes moment">
+                    <div class="carousel-caption">Wishes Moment - #NN004</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG-20240528-WA0003.jpg" alt="Festive Shine">
+                    <div class="carousel-caption">Festive shine - #NN005</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250731_220144.jpg" alt="Graduation Nails">
+                    <div class="carousel-caption">Graduation Shine - #NN006</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240901_190359.jpg" alt="Anniversary Nails">
+                    <div class="carousel-caption">Anniversary Love - #NN007</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG_20241028_212405_739.jpg" alt="Birthday Nails">
+                    <div class="carousel-caption">Birthday Sparkle - #NN008</div>
+                </div>
+            </div>
+        </div>
 
-    <div class="carousel-container">
-        <h3 class="carousel-title">For Every Celebration</h3>
-        <div class="carousel-nav">
-            <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
-            <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-container">
+            <h3 class="carousel-title">Signature Artistry</h3>
+            <div class="carousel-nav">
+                <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel">
+                <div class="carousel-item">
+                    <img src="images/20250319_224348.jpg" alt="Chrome Nails">
+                    <div class="carousel-caption">Aura Chrome - #NN101</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250731_204625.jpg" alt="Marble Nails">
+                    <div class="carousel-caption">Marble Magic - #NN102</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250808_080634.jpg" alt="3D Art Nails">
+                    <div class="carousel-caption">3D Fantasy - #NN103</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG-20240608-WA0003.jpg" alt="Ombre Nails">
+                    <div class="carousel-caption">Ombre Dreams - #NN104</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG-20250808-WA0025.jpg" alt="Dry Flower Nails">
+                    <div class="carousel-caption">Floral Whisper - #NN105</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240318_202144.jpg" alt="Glitter Nails">
+                    <div class="carousel-caption">Glittery Wishes - #NN106</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240911_170459.jpg" alt="Abstract Nails">
+                    <div class="carousel-caption">Magic Abstract - #NN107</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG20220501151915.jpg" alt="Metalic foil Nails">
+                    <div class="carousel-caption">Metalic Foil Shine - #NN108</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/Snapchat-1028333329.jpg" alt="French Nails">
+                    <div class="carousel-caption">French Elegent - #NN109</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250216_150147.jpg" alt="Rhinestone Nails">
+                    <div class="carousel-caption">Rhinestone Plush - #NN110</div>
+                </div>
+            </div>
         </div>
-        <div class="carousel">
-            <div class="carousel-item">
-                <img src="images/20241211_170843.jpg" alt="Bridal Nails">
-                <div class="carousel-caption">Bridal Elegance - #NN001</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240718_104057.jpg" alt="Party Nails">
-                <div class="carousel-caption">Party Glam - #NN002</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20231013_191445.jpg" alt="Indian Occassion">
-                <div class="carousel-caption">Indian Occassions - #NN003</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240524_195724.jpg" alt="Wishes moment">
-                <div class="carousel-caption">Wishes Moment - #NN004</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG-20240528-WA0003.jpg" alt="Festive Shine">
-                <div class="carousel-caption">Festive shine - #NN005</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250731_220144.jpg" alt="Graduation Nails">
-                <div class="carousel-caption">Graduation Shine - #NN006</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240901_190359.jpg" alt="Anniversary Nails">
-                <div class="carousel-caption">Anniversary Love - #NN007</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG_20241028_212405_739.jpg" alt="Birthday Nails">
-                <div class="carousel-caption">Birthday Sparkle - #NN008</div>
-            </div>
-        </div>
-    </div>
 
-    <div class="carousel-container">
-        <h3 class="carousel-title">Signature Artistry</h3>
-        <div class="carousel-nav">
-            <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
-            <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-container">
+            <h3 class="carousel-title">Seasonal & Trendy</h3>
+            <div class="carousel-nav">
+                <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel">
+                <div class="carousel-item">
+                    <img src="images/20250621_201543.jpg" alt="Summer Nails">
+                    <div class="carousel-caption">Summer Vibes - #NN201</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/Snapchat-1299582147.jpg" alt="Winter Nails">
+                    <div class="carousel-caption">Winter Frost - #NN202</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250731_220220.jpg" alt="Beach Nails">
+                    <div class="carousel-caption">Beachy vibe - #NN203</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20241113_232938.jpg" alt="Spring Nails">
+                    <div class="carousel-caption">Spring Bloom - #NN204</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20241030_164511.jpg" alt="Autumn Nails">
+                    <div class="carousel-caption">Autumn Leaves - #NN205</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG-20240528-WA0005.jpg" alt="Mountain Nails">
+                    <div class="carousel-caption">Mountain Vibe - #NN206</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/IMG-20240527-WA0028.jpg" alt="Weekend Nails">
+                    <div class="carousel-caption">Moody Weekends - #NN207</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250621_203446.jpg" alt="Slayy Nails">
+                    <div class="carousel-caption">Slay The Day - #NN208</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20250621_205242.jpg" alt="Flex Nails">
+                    <div class="carousel-caption">Flex Onn - #NN209</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/20240503_171824.jpg" alt="Glowup Nails">
+                    <div class="carousel-caption">The Glow Up - #NN210</div>
+                </div>
+            </div>
         </div>
-        <div class="carousel">
-            <div class="carousel-item">
-                <img src="images/20250319_224348.jpg" alt="Chrome Nails">
-                <div class="carousel-caption">Aura Chrome - #NN101</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250731_204625.jpg" alt="Marble Nails">
-                <div class="carousel-caption">Marble Magic - #NN102</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250808_080634.jpg" alt="3D Art Nails">
-                <div class="carousel-caption">3D Fantasy - #NN103</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG-20240608-WA0003.jpg" alt="Ombre Nails">
-                <div class="carousel-caption">Ombre Dreams - #NN104</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG-20250808-WA0025.jpg" alt="Dry Flower Nails">
-                <div class="carousel-caption">Floral Whisper - #NN105</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240318_202144.jpg" alt="Glitter Nails">
-                <div class="carousel-caption">Glittery Wishes - #NN106</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240911_170459.jpg" alt="Abstract Nails">
-                <div class="carousel-caption">Magic Abstract - #NN107</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG20220501151915.jpg" alt="Metalic foil Nails">
-                <div class="carousel-caption">Metalic Foil Shine - #NN108</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/Snapchat-1028333329.jpg" alt="French Nails">
-                <div class="carousel-caption">French Elegent - #NN109</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250216_150147.jpg" alt="Rhinestone Nails">
-                <div class="carousel-caption">Rhinestone Plush - #NN110</div>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <div class="carousel-container">
-        <h3 class="carousel-title">Seasonal & Trendy</h3>
-        <div class="carousel-nav">
-            <button class="nav-arrow prev-arrow"><i class="fas fa-chevron-left"></i></button>
-            <button class="nav-arrow next-arrow"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="carousel">
-            <div class="carousel-item">
-                <img src="images/20250621_201543.jpg" alt="Summer Nails">
-                <div class="carousel-caption">Summer Vibes - #NN201</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/Snapchat-1299582147.jpg" alt="Winter Nails">
-                <div class="carousel-caption">Winter Frost - #NN202</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250731_220220.jpg" alt="Beach Nails">
-                <div class="carousel-caption">Beachy vibe - #NN203</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20241113_232938.jpg" alt="Spring Nails">
-                <div class="carousel-caption">Spring Bloom - #NN204</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20241030_164511.jpg" alt="Autumn Nails">
-                <div class="carousel-caption">Autumn Leaves - #NN205</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG-20240528-WA0005.jpg" alt="Mountain Nails">
-                <div class="carousel-caption">Mountain Vibe - #NN206</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/IMG-20240527-WA0028.jpg" alt="Weekend Nails">
-                <div class="carousel-caption">Moody Weekends - #NN207</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250621_203446.jpg" alt="Slayy Nails">
-                <div class="carousel-caption">Slay The Day - #NN208</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20250621_205242.jpg" alt="Flex Nails">
-                <div class="carousel-caption">Flex Onn - #NN209</div>
-            </div>
-            <div class="carousel-item">
-                <img src="images/20240503_171824.jpg" alt="Glowup Nails">
-                <div class="carousel-caption">The Glow Up - #NN210</div>
-            </div>
-        </div>
-    </div>
-</section>
-    <!-- Services Section -->
     <section id="services" class="services" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">Bespoke Nail Creations & Pricing</h2>
-
+            
             <div class="service-category">
                 <h3>On Natural Nails</h3>
                 <div class="service-item">
@@ -970,7 +605,7 @@
                     <span class="service-price">₹700</span>
                 </div>
             </div>
-
+            
             <div class="service-category">
                 <h3>Nail Arts / Add Ons (Per finger)</h3>
                 <div class="service-item">
@@ -998,7 +633,7 @@
                     <span class="service-price">₹250</span>
                 </div>
             </div>
-
+            
             <div class="service-category">
                 <h3>Nail Extensions</h3>
                 <div class="service-item">
@@ -1018,7 +653,7 @@
                     <span class="service-price">₹700</span>
                 </div>
             </div>
-
+            
             <div class="service-category">
                 <h3>Repairs & Removals</h3>
                 <div class="service-item">
@@ -1038,7 +673,7 @@
                     <span class="service-price">₹300</span>
                 </div>
             </div>
-
+            
             <div class="booking-process">
                 <h3>Ready for Your Custom Creation?</h3>
                 <div class="booking-step">
@@ -1057,7 +692,6 @@
         </div>
     </section>
 
-    <!-- Socials Section -->
     <section id="socials" class="socials" data-aos="fade-up">
         <div class="container">
             <h2 class="section-title">See More of My Work</h2>
@@ -1072,186 +706,171 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>© 2025 NAIL NURSE | Home Atelier</p>
+            <p>© 2025 NAIL NURSE | Hygiene Focused • Nurse Led • Artist Driven</p>
             <p>By appointment only</p>
         </div>
-    </footer>
-
-   ...
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
     </script>
-<script>
-    // --- Header Scroll Behavior ---
-    const header = document.getElementById('main-header');
-    let lastScrollY = window.scrollY;
 
-    window.addEventListener('scroll', () => {
-        if (lastScrollY < window.scrollY && window.scrollY > 150) {
-            // User is scrolling DOWN, hide header
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            // User is scrolling UP or near the top, show header
-            header.style.transform = 'translateY(0)';
-        }
-        lastScrollY = window.scrollY;
+    <script>
+        // --- Header Scroll Behavior ---
+        const header = document.getElementById('main-header');
+        let lastScrollY = window.scrollY;
 
-        // Add background color when not at the very top
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // --- Mobile Menu Toggle (with Auto-Close and Icon Animation) ---
-    const navToggle = document.getElementById('nav-toggle');
-
-    const mobileNav = document.createElement('nav');
-    mobileNav.className = 'main-nav-mobile';
-    mobileNav.innerHTML = `
-        <a href="#gallery">Press-Ons</a>
-        <a href="#services">Atelier</a>
-        <a href="#socials">Connect</a>
-    `;
-    document.body.appendChild(mobileNav);
-
-    const mobileNavLinks = mobileNav.querySelectorAll('a');
-
-    // Show/hide the menu when the toggle is clicked
-    if (navToggle) {
-        navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active'); // This triggers the 'X' animation
-            mobileNav.classList.toggle('active');
-        });
-    }
-
-    // Hide the menu when any link inside it is clicked
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active'); // This reverts the 'X' back to lines
-            mobileNav.classList.remove('active');
-        });
-    });
-</script>
-<script>
-document.querySelectorAll('.carousel-container').forEach(container => {
-    const carousel = container.querySelector('.carousel');
-    if (!carousel) return;
-
-    const items = Array.from(carousel.children);
-    items.forEach(item => carousel.appendChild(item.cloneNode(true)));
-
-    const prevArrow = container.querySelector('.prev-arrow');
-    const nextArrow = container.querySelector('.next-arrow');
-
-    let speed = 1;
-    let position = 0;
-    let isPausedByClick = false;
-    let isHovering = false;
-    let isDragging = false; // For desktop drag
-
-    // --- Animation Engine ---
-    function animateCarousel() {
-        if (!isPausedByClick && !isHovering && !isDragging) {
-            position -= speed;
-            if (Math.abs(position) >= carousel.scrollWidth / 2) {
-                position = 0;
+        window.addEventListener('scroll', () => {
+            if (lastScrollY < window.scrollY && window.scrollY > 150) {
+                // User is scrolling DOWN, hide header
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // User is scrolling UP or near the top, show header
+                header.style.transform = 'translateY(0)';
             }
-            carousel.style.transform = `translateX(${position}px)`;
-        }
-        requestAnimationFrame(animateCarousel);
-    }
-    animateCarousel();
+            lastScrollY = window.scrollY;
 
-    // --- Desktop Controls ---
-    if (prevArrow && nextArrow) {
-        prevArrow.addEventListener('click', () => {
-            isHovering = true;
-            position += 320;
-            if (position > 0) position = -(carousel.scrollWidth / 2) + 320;
-            carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => { isHovering = false; }, 500);
+            // Add background color when not at the very top
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
-        nextArrow.addEventListener('click', () => {
-            isHovering = true;
-            position -= 320;
-            carousel.style.transform = `translateX(${position}px)`;
-            setTimeout(() => { isHovering = false; }, 500);
+
+        // --- Mobile Menu Toggle (with Auto-Close and Icon Animation) ---
+        const navToggle = document.getElementById('nav-toggle');
+
+        const mobileNav = document.createElement('nav');
+        mobileNav.className = 'main-nav-mobile';
+        mobileNav.innerHTML = `
+            <a href="#gallery">Press-Ons</a>
+            <a href="#services">Atelier</a>
+            <a href="#socials">Connect</a>
+        `;
+        document.body.appendChild(mobileNav);
+
+        const mobileNavLinks = mobileNav.querySelectorAll('a');
+
+        // Show/hide the menu when the toggle is clicked
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active'); // This triggers the 'X' animation
+                mobileNav.classList.toggle('active');
+            });
+        }
+
+        // Hide the menu when any link inside it is clicked
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active'); // This reverts the 'X' back to lines
+                mobileNav.classList.remove('active');
+            });
         });
-        carousel.querySelectorAll('.carousel-item').forEach(item => {
-            item.addEventListener('mouseenter', () => isHovering = true);
-            item.addEventListener('mouseleave', () => isHovering = false);
-        });
-    }
+    </script>
 
-    // --- UPDATED Mobile/Tablet Smart Swipe Controls ---
-    let touchStartX, touchStartY, isSwiping, initialPosition;
-    let isVerticalScroll = false; // <-- NEW: Tracks vertical scrolling
+    <script>
+    document.querySelectorAll('.carousel-container').forEach(container => {
+        const carousel = container.querySelector('.carousel');
+        if (!carousel) return;
 
-    carousel.addEventListener('touchstart', (e) => {
-        isHovering = true; // Pause animation during touch
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isSwiping = false;
-        isVerticalScroll = false; // <-- NEW: Reset on new touch
-        initialPosition = position;
-    }, { passive: true });
+        const items = Array.from(carousel.children);
+        items.forEach(item => carousel.appendChild(item.cloneNode(true)));
 
-    carousel.addEventListener('touchmove', (e) => {
-        const deltaX = e.touches[0].clientX - touchStartX;
-        const deltaY = e.touches[0].clientY - touchStartY;
+        const prevArrow = container.querySelector('.prev-arrow');
+        const nextArrow = container.querySelector('.next-arrow');
 
-        // NEW: Check for vertical scroll *first*
-        if (!isSwiping && Math.abs(deltaY) > Math.abs(deltaX) + 5) {
-            isVerticalScroll = true;
-            return; // This is a page scroll, so don't do anything else
+        let speed = 1;
+        let position = 0;
+        let isPausedByClick = false;
+        let isHovering = false;
+        let isDragging = false; // For desktop drag
+
+        // --- Animation Engine ---
+        function animateCarousel() {
+            if (!isPausedByClick && !isHovering && !isDragging) {
+                position -= speed;
+                if (Math.abs(position) >= carousel.scrollWidth / 2) {
+                    position = 0;
+                }
+                carousel.style.transform = `translateX(${position}px)`;
+            }
+            requestAnimationFrame(animateCarousel);
+        }
+        animateCarousel();
+
+        // --- Desktop Controls ---
+        if (prevArrow && nextArrow) {
+            prevArrow.addEventListener('click', () => {
+                isHovering = true;
+                position += 320;
+                if (position > 0) position = -(carousel.scrollWidth / 2) + 320;
+                carousel.style.transform = `translateX(${position}px)`;
+                setTimeout(() => { isHovering = false; }, 500);
+            });
+            nextArrow.addEventListener('click', () => {
+                isHovering = true;
+                position -= 320;
+                carousel.style.transform = `translateX(${position}px)`;
+                setTimeout(() => { isHovering = false; }, 500);
+            });
+            carousel.querySelectorAll('.carousel-item').forEach(item => {
+                item.addEventListener('mouseenter', () => isHovering = true);
+                item.addEventListener('mouseleave', () => isHovering = false);
+            });
         }
 
-        // This is the original horizontal swipe logic
-        if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { 
-            e.preventDefault();
-            isSwiping = true;
-            position = initialPosition + deltaX;
-            carousel.style.transform = `translateX(${position}px)`;
-        }
-    }, { passive: false });
+        // --- UPDATED Mobile/Tablet Smart Swipe Controls ---
+        let touchStartX, touchStartY, isSwiping, initialPosition;
+        let isVerticalScroll = false; // <-- NEW: Tracks vertical scrolling
 
-    carousel.addEventListener('touchend', () => {
-        // UPDATED: Only toggle pause if it was a true tap
-        // (i.e., NOT a horizontal swipe and NOT a vertical scroll)
-        if (!isSwiping && !isVerticalScroll) { 
-            isPausedByClick = !isPausedByClick;
-        }
-
-        isHovering = false; // Always resume animation after touch
-
-        // Reset flags
-        setTimeout(() => { 
+        carousel.addEventListener('touchstart', (e) => {
+            isHovering = true; // Pause animation during touch
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
             isSwiping = false;
-            isVerticalScroll = false;
-        }, 50);
-    });
-});
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const track = document.getElementById('heroSlideshow');
-        
-        // 1. Copy the images to create the loop buffer
-        // (This turns your 4 images into 8 images in the browser memory)
-        track.innerHTML += track.innerHTML;
+            isVerticalScroll = false; // <-- NEW: Reset on new touch
+            initialPosition = position;
+        }, { passive: true });
 
-        // 2. Start the animation
-        // We add the class now to ensure it starts only after copying is done
-        track.classList.add('active');
+        carousel.addEventListener('touchmove', (e) => {
+            const deltaX = e.touches[0].clientX - touchStartX;
+            const deltaY = e.touches[0].clientY - touchStartY;
+
+            // NEW: Check for vertical scroll *first*
+            if (!isSwiping && Math.abs(deltaY) > Math.abs(deltaX) + 5) {
+                isVerticalScroll = true;
+                return; // This is a page scroll, so don't do anything else
+            }
+
+            // This is the original horizontal swipe logic
+            if (Math.abs(deltaX) > Math.abs(deltaY) + 5) { 
+                e.preventDefault();
+                isSwiping = true;
+                position = initialPosition + deltaX;
+                carousel.style.transform = `translateX(${position}px)`;
+            }
+        }, { passive: false });
+
+        carousel.addEventListener('touchend', () => {
+            // UPDATED: Only toggle pause if it was a true tap
+            // (i.e., NOT a horizontal swipe and NOT a vertical scroll)
+            if (!isSwiping && !isVerticalScroll) { 
+                isPausedByClick = !isPausedByClick;
+            }
+            
+            isHovering = false; // Always resume animation after touch
+            
+            // Reset flags
+            setTimeout(() => { 
+                isSwiping = false;
+                isVerticalScroll = false;
+            }, 50);
+        });
     });
-</script>
+    </script>
 </body>
 </html>
