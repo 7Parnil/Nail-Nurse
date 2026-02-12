@@ -362,6 +362,51 @@
         [data-aos] { opacity: 0; transition: opacity 0.6s ease, transform 0.6s ease; }
         [data-aos="fade-up"] { transform: translateY(30px); }
         [data-aos].aos-animate { opacity: 1; transform: translate(0); }
+        
+        /* 1. SLEEK HEADER FIX */
+        .main-header {
+            padding: 10px 20px; /* Slimmer padding */
+        }
+        .header-logo {
+            font-size: 1.4rem; /* Slightly smaller, more elegant logo text */
+        }
+        
+        /* 2. DUPLICATE NAME FIX (The Magic Fade) */
+        /* Initially hide the logo in the menu */
+        .header-logo {
+            opacity: 0; 
+            transform: translateY(-10px); /* Pushes it up slightly */
+            transition: all 0.3s ease;
+        }
+        /* When scrolled, show the logo */
+        .main-header.scrolled .header-logo {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 3. MOBILE SPACING FIX */
+        @media (max-width: 768px) {
+            /* Reduce the big gaps between sections by half */
+            section { 
+                padding: 40px 0; 
+            }
+            
+            /* Make the "Shop by Vibe" circles tighter */
+            .category-grid {
+                gap: 15px; /* Bring circles closer together */
+            }
+            .category-item img {
+                width: 120px; /* Slightly smaller circles for mobile */
+                height: 120px;
+            }
+            
+            /* Fix the header menu links size on mobile */
+            .main-nav-mobile a {
+                font-size: 1rem;
+                margin: 10px 0;
+            }
+        }
+        
     </style>
 </head>
 <body>
